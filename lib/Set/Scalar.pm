@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.16';
+$VERSION = '1.17';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -100,9 +100,11 @@ See L</"Customising Display"> for customising the set display.
     $s->element($m)   # alias for member
 
     $s->is_null       # returns true if the set is empty
+    $s->is_empty      # alias for is_null
     $s->is_universal  # returns true if the set is universal
 
-    $s->null	      # the null set
+    $s->null          # the null set
+    $s->empty         # alias for null
     $s->universe      # the universe of the set
 
 =head2 Deriving
@@ -242,25 +244,32 @@ that, either.
 
 If you want to customise the display routine you will have to
 modify the C<as_string> callback.  You can modify it either
-for all sets
+for all sets by using C<as_string_callback()> as a class method:
 
-    Set::Scalar->as_string_callback(sub { ... });
+    my $class_callback = sub { ... };
 
-or for specific sets
+    Set::Scalar->as_string_callback($class_callback);
 
-    $s->as_string_callback(sub { ... });
+or for specific sets by using C<as_string_callback()> as an object
+method:
 
-The anonymous subroutine gets as its first argument the set.
-For example to display C<a-b-c-d-e> instead of C<(a b c d e)>
+    my $callback = sub  { ... };
 
-    $s->as_string_callback(sub{join("-",sort shift->elements)});
+    $s1->as_string_callback($callback);
+    $s2->as_string_callback($callback);
+
+The anonymous subroutine gets as its first (and only) argument the
+set to display as a string.  For example to display the set C<$s>
+as C<a-b-c-d-e> instead of C<(a b c d e)>
+
+    $s->as_string_callback(sub{join("-",sort $_[0]->elements)});
 
 If called without an argument, the current callback is returned.
 
-If called with undef as the only argument, the original callback
-(the one returning C<(a b c d e)>) for all the sets is restored,
-or for a single set the callback is removed (and the callback for
-all the sets will be used).
+If called as a class method with undef as the only argument, the
+original callback (the one returning C<(a b c d e)>) for all the sets
+is restored, or if called for a single set the callback is removed
+(and the callback for all the sets will be used).
 
 =head1 AUTHOR
 

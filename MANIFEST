@@ -23,6 +23,7 @@ t/intersection.t
 t/laws.t
 t/member.t
 t/misc.t
+t/null.t
 t/set_set.t
 t/symmdiff.t
 t/union.t

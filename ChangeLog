@@ -1,3 +1,15 @@
+Sat Dec  8 01:48:35 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* Added is_empty() and empty() aliases for is_null()
+	  and null(); from Peter Oliver.
+
+	* In the display callack discussion show by example
+	  that one can use the same callback for several sets
+	  (instead of generating a new anonymous subroutine each time),
+	  and clarify the class versus object method wording.
+		
+	* Released as 1.17. 
+
 Tue Oct 23 17:20:32 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* Allow customising the set display: as_string_callback().

@@ -452,11 +452,15 @@ sub is_null {
     return $self->size == 0;
 }
 
+*is_empty = \&is_null;
+
 sub null {
     my $self = shift;
 
     return $self->universe->null;
 }
+
+*empty = \&null;
 
 sub _compare {
     my $a = shift;
