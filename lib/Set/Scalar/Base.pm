@@ -423,14 +423,14 @@ sub compare {
 
     my $c = $a->intersection($b);
 
-    $a = $a->size;
-    $b = $b->size;
-    $c = $c->size;
+    my $na = $a->size;
+    my $nb = $b->size;
+    my $nc = $c->size;
 
-    return 'disjoint'        if $c == 0;
-    return 'equal'           if $a == $c && $b == $c;
-    return 'proper subset'   if $b == $c;
-    return 'proper superset' if $a == $c;
+    return 'disjoint'        if $nc == 0;
+    return 'equal'           if $na == $nc && $nb == $nc;
+    return 'proper superset' if $nb == $nc;
+    return 'proper subset'   if $na == $nc;
     return 'proper intersect';
 }
 
@@ -541,7 +541,7 @@ sub _elements_as_string {
 	    } else {
 		$recursive = RECURSIVE_DEEP;
 	    }
-	} elsif (ref $element && $element->isa('Set::Scalar::Base')) {
+	} elsif (ref $element && $element->isa(__PACKAGE__)) {
 	    local $history{ $element_id } = 1;
 	    push @complex_elements, $element->as_string( \%history );
 	} else {

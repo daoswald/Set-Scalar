@@ -1,0 +1,12 @@
+1999-09-24  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Paul Schinder <schinder@pobox.com> reported that the set_set.t
+	  subtest #5 produces "(a (b (a (c ...) ...)) (c ...))" for him,
+	  not "(a (b (a ...)) (c ...))" as expected.  Nondeterminism
+	  in stringification.  Not yet resolved but the test hacked
+	  to allow either (for subtests #5 and #6).
+	
+	* Timothy Kimball <kimball@stsci.edu> reported that Set::Scalar 0.9
+	  had the super/subsetness the wrong way round.  Fixed.
+
+	* Set::Scalar 0.901 released.

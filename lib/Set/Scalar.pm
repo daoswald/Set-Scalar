@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = 0.9;
+$VERSION = 0.901;
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -37,6 +37,8 @@ sub _new_hook {
 
     $self->_insert( { _make_elements( @$elements ) } );
 }
+
+=pod
 
 =head1 NAME
 
@@ -111,7 +113,7 @@ These methods have operator overloads:
     $v = $s / $t; # unique
     $c = -$s;     # complement
 
-=head Comparing
+=head2 Comparing
 
     $eq = $s->is_equal($t);
     $dj = $s->is_disjoint($t);
@@ -123,10 +125,11 @@ These methods have operator overloads:
 
     $cmp = $s->compare($t);
 
-This returns a string from the following list: "equal", "disjoint",
-"proper subset", "proper superset", "proper intersect", and "disjoint
-universes", if you try to compare sets of different universes, and
-"different", if you try to compare sets and non-sets.
+The C<compare> method returns a string from the following list:
+"equal", "disjoint", "proper subset", "proper superset", "proper
+intersect", and "disjoint universes", if you try to compare sets of
+different universes, and "different", if you try to compare sets and
+non-sets (that are not equal in their string form).
 
     $ueq = $s->have_same_universe($t);
 

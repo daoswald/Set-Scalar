@@ -1,3 +1,4 @@
+ChangeLog
 MANIFEST
 Makefile.PL
 lib/Set/Scalar.pm
@@ -11,6 +12,7 @@ lib/Set/Scalar/Virtual.pm
 README
 t/basic.t
 t/basic_overload.t
+t/compare.t
 t/difference.t
 t/intersection.t
 t/laws.t

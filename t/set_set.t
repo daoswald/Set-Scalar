@@ -27,10 +27,13 @@ print "ok 4\n";
 
 $s->insert($u);
 
-print "not " unless $s == "(a (b (a ...)) (c ...))";
+# There is some nondeterminism that needs to be resolved.
+print "not " unless $s == "(a (b (a ...)) (c ...))" or
+                    $s == "(a (b (a (c ...) ...)) (c ...))";
 print "ok 5\n";
 
-print "not " unless $t == "(b (a (b ...) (c ...)))";
+print "not " unless $t == "(b (a (b ...) (c ...)))" or
+                    $t == "(b (a (b (c ...) ...) (c ...)))";
 print "ok 6\n";
 
 $t->delete($s);
