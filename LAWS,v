@@ -1,0 +1,74 @@
+head	1.1;
+access;
+symbols;
+locks
+	jah:1.1; strict;
+comment	@# @;
+
+
+1.1
+date	96.03.17.08.50.04;	author jah;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@#
+# $Id$
+#
+
+#  1. --X == X				Law of Double Complement
+
+
+#  2a. -(X + Y) == -X * -Y		DeMorgan's Laws
+
+#  2b. -(X * Y) == -X + -Y		DeMorgan's Laws
+
+
+#  3a. X + Y == Y + X			Commutative Laws
+
+#  3b. X * Y == Y * X			Commutative Laws
+
+
+#  4a. X + (Y + Z) == (X + Y) + Z	Associative Laws
+
+#  4b. X * (Y * Z) == (X * Y) * Z	Associative Laws
+
+
+#  5a. X + (Y * Z) == (X + Y) * (X + Z)	Distributive Laws
+
+#  5b. X * (Y + Z) == (X * Y) + (X * Z)	Distributive Laws
+
+
+#  6a. X + X == X			Idempotent Laws
+
+#  6b. X * X == X			Idempotent Laws
+
+
+#  7a. X + N == X			Identity Laws
+
+#  7b. X * U == X			Identity Laws
+
+
+#  8a. X + -X == U			Inverse Laws
+
+#  8b. X * -X == N			Inverse Laws
+
+
+#  9a. X + U == U			Domination Laws
+
+#  9b. X * N == N			Domination Laws
+
+
+# 10a. X + (X * Y) == X			Absorption Laws
+
+# 10b. X * (X + Y) == X			Absorption Laws
+@

@@ -1,0 +1,94 @@
+head	1.3;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.3
+date	96.03.17.11.00.04;	author jah;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	96.03.17.08.52.15;	author jah;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	96.03.17.08.51.58;	author jah;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.3
+log
+@"perldoc" and "make test" added.
+@
+text
+@#
+# $Id: README,v 1.2 1996/03/17 08:52:15 jah Exp jah $
+#
+
+This package implements the basic set operations for Perl
+scalars/references.
+
+The documentation is the pod inlined into Scalar.pm, use for example
+
+	pod2man Scalar.pm | nroff -man | more
+
+to view the examples, or
+
+	perldoc Set::Scalar
+
+if you install this package and the perldoc script is installed.
+
+To test the functionality
+
+	make test
+
+Please report any bugs and/or missing/excess functionality to me.
+
+Jarkko Hietaniemi <Jarkko.Hietaniemi@@iki.fi>
+@
+
+
+1.2
+log
+@s/hut/iki/
+@
+text
+@d2 1
+a2 1
+# $Id: README,v 1.1 1996/03/17 08:51:58 jah Exp jah $
+d5 2
+a6 3
+This is the very first release of Set::Scalar. It implements the
+basic set operations for Perl scalars/references. The only available
+documentation is the pod inlined into Scalar.pm, use for example
+d8 2
+d12 5
+a16 1
+to view the examples.
+d18 4
+a24 1
+
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d2 1
+a2 1
+# $Id$
+d15 1
+a15 1
+Jarkko Hietaniemi <Jarkko.Hietaniemi@@hut.fi>
+@
