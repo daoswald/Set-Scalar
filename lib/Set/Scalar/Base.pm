@@ -375,7 +375,7 @@ sub _unique {
 }
 
 sub _unique_overload {
-    my ($this, $that ) = _binary_underload( \@_ );
+    my ($this, $that) = _binary_underload( \@_ );
 
     return $this->_unique( $that );
 }
@@ -427,7 +427,9 @@ sub compare {
     my $nb = $b->size;
     my $nc = $c->size;
 
-    return 'disjoint'        if $nc == 0;
+    return 'proper superset' if $na && $nb == 0;
+    return 'proper subset'   if $na == 0 && $nb;
+    return 'disjoint'        if $na && $nb && $nc == 0;
     return 'equal'           if $na == $nc && $nb == $nc;
     return 'proper superset' if $nb == $nc;
     return 'proper subset'   if $na == $nc;

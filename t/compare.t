@@ -1,12 +1,16 @@
 use Set::Scalar;
 
-$t = Set::Scalar->new(qw(a b c));
-$u = Set::Scalar->new(qw(a b c));
-$v = Set::Scalar->new(qw(d e f));
-$w = Set::Scalar->new(qw(a b));
-$x = Set::Scalar->new(qw(b c d));
+use strict;
 
-print "1..14\n";
+my $t = Set::Scalar->new(qw(a b c));
+my $u = Set::Scalar->new(qw(a b c));
+my $v = Set::Scalar->new(qw(d e f));
+my $w = Set::Scalar->new(qw(a b));
+my $x = Set::Scalar->new(qw(b c d));
+my $n = Set::Scalar->new(qw());
+my $o = Set::Scalar->new(qw());
+
+print "1..22\n";
 
 print "not " unless $t == $u;
 print "ok 1\n";
@@ -49,4 +53,28 @@ print "ok 13\n";
 
 print "not " unless $t->compare($v) eq 'disjoint';
 print "ok 14\n";
+
+print "not " unless $t > $n;
+print "ok 15\n";
+
+print "not " unless $n < $t;
+print "ok 16\n";
+
+print "not " unless $n == $o;
+print "ok 17\n";
+
+print "not " unless $o == $n;
+print "ok 18\n";
+
+print "not " if $n < $o;
+print "ok 19\n";
+
+print "not " if $n > $o;
+print "ok 20\n";
+
+print "not " unless $n <= $o;
+print "ok 21\n";
+
+print "not " unless $n >= $o;
+print "ok 22\n";
 
