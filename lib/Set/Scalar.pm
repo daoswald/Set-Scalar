@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = 0.901;
+$VERSION = 1.01;
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -127,16 +127,7 @@ These methods have operator overloads:
 
 The C<compare> method returns a string from the following list:
 "equal", "disjoint", "proper subset", "proper superset", "proper
-intersect", and "disjoint universes", if you try to compare sets of
-different universes, and "different", if you try to compare sets and
-non-sets (that are not equal in their string form).
-
-    $ueq = $s->have_same_universe($t);
-
-Note: currently it is I<possible> but B<unsupported> to have several
-simultaneous universes for the sets.  Do not go there, even if you
-read the universe.t and B<think> you understand.  The interface
-is not public and going to change.
+intersect", and in future, "disjoint universes".
 
 These methods have operator overloads:    
 

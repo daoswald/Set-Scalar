@@ -72,7 +72,7 @@ sub new {
 }
 
 sub _make_elements {
-    return map { overload::StrVal($_) => $_ } @_;
+    return map { (defined $_ ? overload::StrVal($_) : "") => $_ } @_;
 }
 
 sub _invalidate_cached {

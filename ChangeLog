@@ -1,3 +1,9 @@
+2000-04-15  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Make to work with perl 5.6.0.
+	
+	* Release as 1.01 as no bug reports have been seen for many moons.
+
 1999-09-24  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Paul Schinder <schinder@pobox.com> reported that the set_set.t

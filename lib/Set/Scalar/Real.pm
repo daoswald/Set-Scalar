@@ -111,9 +111,6 @@ sub fill {
 sub DESTROY {
     my $self = shift;
 
-    $self->{ null     }->DESTROY;
-    $self->{ universe }->DESTROY;
-
     delete $self->{ null     };
     delete $self->{ universe };
 
@@ -133,6 +130,7 @@ B<Internal use only>.
 =head1 DESCRIPTION
 
 B<This is not the module you are looking for.>
+If you want documentation see L<Set::Scalar>.
 
 =head1 AUTHOR
 
