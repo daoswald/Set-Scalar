@@ -144,6 +144,14 @@ sub element {
 *has      = \&element;
 *contains = \&element;
 
+sub each {
+    my $self = shift;
+
+    my ($k, $e) = each %{ $self->{'elements'} };
+
+    return $e;
+}
+
 sub _clone {
     my $self     = shift;
     my $original = shift;

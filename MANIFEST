@@ -15,6 +15,7 @@ t/basic_overload.t
 t/boolean.t
 t/compare.t
 t/difference.t
+t/each.t
 t/intersection.t
 t/laws.t
 t/misc.t

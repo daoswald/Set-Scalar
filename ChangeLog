@@ -1,3 +1,10 @@
+Sat Oct 13 17:40:28 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* Add each() as a lighter weight way of iterating
+	  over sets, as suggested by Dave Lewis.
+
+	* Released as 1.12.
+	  
 Wed Oct 10 17:31:12 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* In boolean contexts the string representation of sets

@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.11';
+$VERSION = '1.12';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -168,12 +168,65 @@ These methods have operator overloads:
 
     $cmp = $s <=> $t;
 
+=head2 Boolean contexts
+
 In Boolean contexts such as
 
     if ($set) { ... }
+    while ($set1 && $set2) { ... }
 
 the size of the C<$set> is tested, so empty sets test as false,
 and non-empty sets as true.
+
+=head2 Iterating
+
+    while (defined(my $e = $s->each)) { ... }
+
+This is more memory-friendly than
+
+    for my $e ($s->elements) { ... }
+
+which would first construct the full list of elements and then
+walk through it: the C<$s->each> handles one element at a time.
+
+Analogously to using normal C<each(%hash)> in scalar context,
+using C<$s->each> has the following caveats:
+
+=over 4
+
+=item *
+
+The elements are returned in (apparently) random order.
+So don't expect any particular order.
+
+=item *
+
+When no more elements remain C<undef> is returned.  Since you may one
+day have elements named C<"0"> don't test just like this
+
+    while (my $e = $s->each) { ... }          # WRONG
+
+but instead like this
+
+    while (defined(my $e = $s->each)) { ... } # right
+
+=item *
+
+There is one iterator per one set which is shared by many
+element-accessing interfaces-- using the following will reset the
+iterator: elements(), insert(), members(), size(), unique().  insert()
+causes the iterator of the set being inserted (not the set being the
+target of insertion) becoming reset.  unique() causes the iterators of
+all the participant sets becoming reset.  B<The iterator getting reset
+most probably causes an endless loop.>  So avoid doing that.
+
+=item *
+
+Modifying the set during the iteration may cause elements to be missed
+or duplicated, or in the worst case, an endless loop; so don't do
+that, either.
+
+=back
 
 =head1 AUTHOR
 
