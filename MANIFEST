@@ -16,6 +16,7 @@ t/compare.t
 t/difference.t
 t/intersection.t
 t/laws.t
+t/misc.t
 t/set_set.t
 t/symmdiff.t
 t/union.t

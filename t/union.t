@@ -65,6 +65,3 @@ print "ok 15\n";
 print "not " unless $a eq "(a b c d e)";
 print "ok 16\n";
 
-
-
-

@@ -10,4 +10,4 @@ WriteMakefile(
 	      'dist'         => { 'COMPRESS' => 'gzip' },
 	      )
 and
-print "Now issue 'make' and then 'make test'.\n";
+print "Now issue 'make' and then 'make test', and if all looks good, 'make install'.\n";

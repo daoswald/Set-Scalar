@@ -170,24 +170,29 @@ sub _union ($$) {
 
     my $this_universe = $this->universe;
 
-    return (undef,          1) unless $this_universe == $that->universe;
+    return (undef,          1, undef)
+	unless $this_universe == $that->universe;
 
-    return ($this->clone,   0) if $that->is_null;
-    return ($that->clone,   0) if $this->is_null;
+    return ($this->clone,   0, ref $this)
+	if $that->is_null;
 
-    return ($this_universe, 1) if $this->is_universal || $that->is_universal;
+    return ($that->clone,   0, ref $that)
+	if $this->is_null;
+
+    return ($this_universe, 1, ref $this)
+	if $this->is_universal || $that->is_universal;
 
     my $union = $this->clone;
 
     $union->insert( $that->elements );
 
-    return ($union, $union->is_universal);
+    return ($union, $union->is_universal, ref $this);
 }
 
 sub _union_overload {
     my ($this, $that) = _binary_underload( \@_ );
 
-    my ($union) = $this->_union( $that );
+    my ($union, $is_universal, $class) = $this->_union( $that );
 
     return $union;
 }
@@ -197,13 +202,19 @@ sub union {
 
     my $union = $self->clone;
 
+    my $is_universal;
+    my $class;
+
     foreach my $next ( @_ ) {
 	unless ($next->is_null) {
-	    ($union, my $shortcircuit) = $union->_union( $next );
+	    ($union, $is_universal, $class) = $union->_union( $next );
 
-	    last if $shortcircuit;
+	    last if $is_universal;
 	}
     }
+
+    $union = $self
+	if $union->size == $self->size;
 
     return $union;
 }
@@ -212,12 +223,17 @@ sub _intersection ($$) {
     my $this = shift;
     my $that = shift;
 
-    return (undef,        1) unless $this->universe == $that->universe;
+    return (undef,        1)
+	unless $this->universe == $that->universe;
 
-    return ($this->null,  1) if $this->is_null || $that->is_null;
+    return ($this->null,  1)
+	if $this->is_null || $that->is_null;
 
-    return ($this->clone, 0) if $that->is_universal;
-    return ($that->clone, 0) if $this->is_universal;
+    return ($this->clone, 0)
+	if $that->is_universal;
+
+    return ($that->clone, 0)
+	if $this->is_universal;
 
     my $intersection = $this->clone;
 
@@ -245,12 +261,15 @@ sub intersection {
 
     foreach my $next ( @_ ) {
 	unless ($next->is_universal) {
-	    ($intersection, my $shortcircuit) =
+	    ($intersection, my $is_null) =
 		$intersection->_intersection( $next );
 
-	    last if $shortcircuit;
+	    last if $is_null;
 	}
     }
+
+    $intersection = $self
+	if $intersection->size == $self->size;
 
     return $intersection;
 }
@@ -266,9 +285,9 @@ sub _difference ($$) {
 
     my $difference = $this->clone;
 
-    my %difference = _make_elements $that->elements;
+    my %that = _make_elements $that->elements;
 
-    $difference->delete( values %difference );
+    $difference->delete( values %that );
 
     return $difference;
 }
@@ -294,7 +313,12 @@ sub difference {
 
     return $this->null if $that->is_universal;
 
-    return $this->_difference( $that );
+    my $difference = $this->_difference( $that );
+
+    $difference = $this
+	if $difference->size == $this->size;
+
+    return $difference;
 }
 
 sub _symmetric_difference ($$) {
@@ -312,6 +336,9 @@ sub _symmetric_difference ($$) {
     my $symmetric_difference = $this->clone;
 
     $symmetric_difference->invert( $that->elements );
+
+    $symmetric_difference = $this
+	if $symmetric_difference->size == $this->size;
 
     return $symmetric_difference;
 }
@@ -611,6 +638,8 @@ sub _set_format {
 
     return (ref $self)->SET_FORMAT;
 }
+
+=pod
 
 =head1 NAME
 

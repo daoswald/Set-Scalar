@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = 1.06;
+$VERSION = 1.07;
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -42,7 +42,7 @@ sub _new_hook {
 
 =head1 NAME
 
-Set::Scalar::Base - base class for Set::Scalar
+Set::Scalar - basic set operations
 
 =head1 SYNOPSIS
 

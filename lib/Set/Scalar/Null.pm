@@ -44,4 +44,25 @@ sub _complement_overload {
     return Set::Scalar->new( $self->universe->elements );
 }
 
+=pod
+
+=head1 NAME
+
+Set::Scalar::Null - internal class for Set::Scalar
+
+=head1 SYNOPSIS
+
+B<Internal use only>.
+
+=head1 DESCRIPTION
+
+B<This is not the module you are looking for.>
+If you want documentation see L<Set::Scalar>.
+
+=head1 AUTHOR
+
+Jarkko Hietaniemi <jhi@iki.fi>
+
+=cut
+
 1;

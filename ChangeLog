@@ -1,3 +1,15 @@
+Mon Mar  5 16:31:32 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* Union could end up returning a true universe, from which one
+	  cannot delete elements (e.g. using difference), bug reported
+	  by Malcolm Purvis.  The fix (which was applied to all of the
+	  union+intersection+difference+symmetric_difference) was to
+          'downgrade' results of the same size as the first argument.
+
+	* Set::Scalar called itself Set::Scalar::Base.
+	
+	* Released as 1.07.
+
 Sat Feb 10 00:54:29 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* Make the code Perl 5.00404-proof, patch from Ed Grimm.
