@@ -595,7 +595,6 @@ sub as_string {
 
     if (exists $self->{'as_string'}) {
 	$string = $self->{'as_string'};
-	# print "from cache: $string\n";
     } else {
 	($string, my $have_reference, my $recursive) =
 	    $self->_elements_as_string(@_ ? shift :

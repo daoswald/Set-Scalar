@@ -1,86 +1,75 @@
 use Set::Scalar;
 
-print "1..20\n";
+print "1..28\n";
+
+sub check {
+    my ($test, $ok) = @_;
+    if ($ok) {
+        print "ok $test\n";
+    } else {
+        print "not ok $test\n";
+    }
+}
 
 my $a = Set::Scalar->new("a".."e");
 my $b = Set::Scalar->new("c".."g");
 
 my $d = $a->difference($b);
 
-print "not " unless $d eq "(a b)";
-print "ok 1\n";
-
-print "not " unless $a eq "(a b c d e)";
-print "ok 2\n";
-
-print "not " unless $b eq "(c d e f g)";
-print "ok 3\n";
+check(  1, $d eq "(a b)" );
+check(  2, $a eq "(a b c d e)" );
+check(  3, $b eq "(c d e f g)" );
 
 my $e = $a - $b;
 
-print "not " unless $e eq "(a b)";
-print "ok 4\n";
-
-print "not " unless $a eq "(a b c d e)";
-print "ok 5\n";
-
-print "not " unless $b eq "(c d e f g)";
-print "ok 6\n";
+check(  4, $e eq "(a b)" );
+check(  5, $a eq "(a b c d e)" );
+check(  6, $b eq "(c d e f g)" );
 
 my $f = $b->difference($a);
 
-print "not " unless $f eq "(f g)";
-print "ok 7\n";
-
-print "not " unless $a eq "(a b c d e)";
-print "ok 8\n";
-
-print "not " unless $b eq "(c d e f g)";
-print "ok 9\n";
+check(  7, $f eq "(f g)" );
+check(  8, $a eq "(a b c d e)" );
+check(  9, $b eq "(c d e f g)" );
 
 my $g = $b - $a;
 
-print "not " unless $g eq "(f g)";
-print "ok 10\n";
-
-print "not " unless $a eq "(a b c d e)";
-print "ok 11\n";
-
-print "not " unless $b eq "(c d e f g)";
-print "ok 12\n";
+check( 10, $g eq "(f g)" );
+check( 11, $a eq "(a b c d e)" );
+check( 12, $b eq "(c d e f g)" );
 
 my $h = $a - "x";
 
-print "not " unless $h eq "(a b c d e)";
-print "ok 13\n";
-
-print "not " unless $a eq "(a b c d e)";
-print "ok 14\n";
+check( 13, $h eq "(a b c d e)" );
+check( 14, $a eq "(a b c d e)" );
 
 my $i = "y" - $a;
 
-print "not " unless $i eq "(y)";
-print "ok 15\n";
-
-print "not " unless $a eq "(a b c d e)";
-print "ok 16\n";
+check( 15, $i eq "(y)" );
+check( 16, $a eq "(a b c d e)" );
 
 my $j = $a - "c";
 
-print "not " unless $j eq "(a b d e)";
-print "ok 17\n";
-
-print "not " unless $a eq "(a b c d e)";
-print "ok 18\n";
+check( 17, $j eq "(a b d e)" );
+check( 18, $a eq "(a b c d e)" );
 
 my $k = "e" - $a;
 
-print "not " unless $k eq "()";
-print "ok 19\n";
+check( 19, $k eq "()" );
+check( 20, $a eq "(a b c d e)" );
 
-print "not " unless $a eq "(a b c d e)";
-print "ok 20\n";
+my $m = new Set::Scalar();
+my $n = new Set::Scalar();
+my $o = $m - $n;
 
+check( 21, defined($m) && ref($m) && $m->isa("Set::Scalar") );
+check( 22, defined($n) && ref($n) && $n->isa("Set::Scalar") );
 
+check( 23, $m eq $n );
+check( 24, $n eq $o );
+check( 25, $o eq $m );
+check( 26, $m == $n );
+check( 27, $n == $o );
+check( 28, $o == $m );
 
 

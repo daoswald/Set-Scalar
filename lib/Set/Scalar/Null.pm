@@ -5,10 +5,9 @@ local $^W = 1;
 
 use vars qw(@ISA);
 
-@ISA = qw(Set::Scalar::Virtual Set::Scalar::Base);
-
-use Set::Scalar::Base;
+@ISA = qw(Set::Scalar::Base Set::Scalar::Virtual);
 use Set::Scalar::Virtual;
+use Set::Scalar::Base;
 
 use overload
     'neg'	=> \&_complement_overload;

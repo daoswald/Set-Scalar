@@ -1,3 +1,11 @@
+Mon May  7 17:53:18 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* Set::Scalar()->new() - Set::Scalar()->new() didn't equal
+	  Set::Scalar()->new(), thanks to wrong inheritance order.
+	  Spotted and most graciously fixed by Joy Koenig.
+
+	* Released as 1.08.
+
 Mon Mar  5 16:31:32 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* Union could end up returning a true universe, from which one
