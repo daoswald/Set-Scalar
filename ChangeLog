@@ -1,4 +1,9 @@
-Sat Dec  8 01:48:35 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Sat Oct  4 17:56:24 2003  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Removed a cut-and-paste bug from symmetric_difference();
+	  from frederik.
+
+Sat Dec  8 01:48:35 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Added is_empty() and empty() aliases for is_null()
 	  and null(); from Peter Oliver.
@@ -10,7 +15,7 @@ Sat Dec  8 01:48:35 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 		
 	* Released as 1.17. 
 
-Tue Oct 23 17:20:32 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Tue Oct 23 17:20:32 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Allow customising the set display: as_string_callback().
 
@@ -21,13 +26,13 @@ Tue Oct 23 17:20:32 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 	
 	* Released as 1.16. 
 
-Mon Oct 22 20:18:56 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Mon Oct 22 20:18:56 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Documentation and whitespace nits: 1.14.
 
 	* Released as 1.15. 
 
-Sat Oct 20 02:56:21 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Sat Oct 20 02:56:21 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Changed has() and contains() to return boolean,
 	  not the member, as pointed out by Mark Dilger.
@@ -41,14 +46,14 @@ Sat Oct 20 02:56:21 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 		
 	* Released as 1.13.
 	  
-Sat Oct 13 17:40:28 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Sat Oct 13 17:40:28 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Add each() as a lighter weight way of iterating
 	  over sets, as suggested by Dave Lewis.
 
 	* Released as 1.12.
 	  
-Wed Oct 10 17:31:12 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Wed Oct 10 17:31:12 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* In boolean contexts the string representation of sets
 	  is not the best possible one, reported by Dan Berger.
@@ -56,11 +61,11 @@ Wed Oct 10 17:31:12 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 	  
 	* Released as 1.11.
 	  
-Fri Aug  3 15:42:38 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Fri Aug  3 15:42:38 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* 1.10: Added COPYRIGHT and LICENSE.
 
-Mon May  7 17:53:18 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Mon May  7 17:53:18 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Annotation mixup: The fix known as 1.08 by Mark Dilger,
 	  not Joy Koenig.
@@ -73,7 +78,7 @@ Mon May  7 17:53:18 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* Released as 1.08.
 
-Mon Mar  5 16:31:32 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Mon Mar  5 16:31:32 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Union could end up returning a true universe, from which one
 	  cannot delete elements (e.g. using difference), bug reported
@@ -85,13 +90,13 @@ Mon Mar  5 16:31:32 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 	
 	* Released as 1.07.
 
-Sat Feb 10 00:54:29 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Sat Feb 10 00:54:29 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Make the code Perl 5.00404-proof, patch from Ed Grimm.
 	
 	* Released as 1.06.
 
-Thu Jan 18 08:24:20 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+Thu Jan 18 08:24:20 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Add examples of the set differences.
 

@@ -30,3 +30,4 @@ t/union.t
 t/unique.t
 t/universe.t
 
+META.yml                                 Module meta-data (added by MakeMaker)

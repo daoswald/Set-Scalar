@@ -1,6 +1,6 @@
 use Set::Scalar;
 
-print "1..20\n";
+print "1..21\n";
 
 my $a = Set::Scalar->new("a".."e");
 my $b = Set::Scalar->new("c".."g");
@@ -81,3 +81,8 @@ print "ok 19\n";
 print "not " unless $a eq "(a b c d e)";
 print "ok 20\n";
 
+my $l = Set::Scalar->new("a", "b");
+my $m = Set::Scalar->new("b", "c");
+
+print "not " unless $l % $m eq "(a c)";
+print "ok 21\n";

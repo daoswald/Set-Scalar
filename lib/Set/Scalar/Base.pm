@@ -362,9 +362,6 @@ sub _symmetric_difference ($$) {
 
     $symmetric_difference->invert( $that->elements );
 
-    $symmetric_difference = $this
-	if $symmetric_difference->size == $this->size;
-
     return $symmetric_difference;
 }
 
