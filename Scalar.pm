@@ -5,8 +5,6 @@
 #
 # Author:	Jarkko Hietaniemi <Jarkko.Hietaniemi@iki.fi>
 #
-# Release:	0.004
-#
 # Purpose:	provide the basic set operations for Perl
 #		scalar/reference data.
 #
@@ -37,7 +35,7 @@
 
 package Set::Scalar;
 
-$VERSION = 0.004;
+$VERSION = 0.00401;
 
 require 5.002;
 
