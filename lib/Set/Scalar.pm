@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.13';
+$VERSION = '1.14';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -192,10 +192,10 @@ This is more memory-friendly than
     for my $e ($s->elements) { ... }
 
 which would first construct the full list of elements and then
-walk through it: the C<$s->each> handles one element at a time.
+walk through it: the C<$s-E<gt>each> handles one element at a time.
 
 Analogously to using normal C<each(%hash)> in scalar context,
-using C<$s->each> has the following caveats:
+using C<$s-E<gt>each> has the following caveats:
 
 =over 4
 
@@ -207,7 +207,7 @@ So don't expect any particular order.
 =item *
 
 When no more elements remain C<undef> is returned.  Since you may one
-day have elements named C<"0"> don't test just like this
+day have elements named C<0> don't test just like this
 
     while (my $e = $s->each) { ... }          # WRONG
 

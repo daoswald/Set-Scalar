@@ -302,7 +302,7 @@ sub _difference ($$) {
     my $this = shift;
     my $that = shift;
 
-    return undef,       unless $this->universe == $that->universe;
+    return undef        unless $this->universe == $that->universe;
 
     return $this->null  if $this->is_null || $that->is_universal;
     return $this->clone if $that->is_null;
@@ -325,7 +325,7 @@ sub _difference_overload {
 sub difference {
     my $this = shift;
 
-    return $this->null  if $this->is_null;
+    return $this->null if $this->is_null;
 
     return $this->clone unless @_;
 
@@ -349,7 +349,7 @@ sub _symmetric_difference ($$) {
     my $this = shift;
     my $that = shift;
 
-    return (undef,        1) unless $this->universe == $that->universe;
+    return (undef, 1) unless $this->universe == $that->universe;
 
     return $that->clone      if $this->is_null;
     return $this->clone      if $that->is_null;
@@ -674,7 +674,8 @@ B<Internal use only>.
 
 =head1 DESCRIPTION
 
-See the Set::Scalar documentation.
+B<This is not the module you are looking for.>
+See the L<Set::Scalar>.
 
 =head1 AUTHOR
 
