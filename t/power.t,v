@@ -1,8 +1,7 @@
 head	1.1;
 access;
 symbols;
-locks
-	jah:1.1; strict;
+locks; strict;
 comment	@# @;
 
 

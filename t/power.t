@@ -1,5 +1,5 @@
 #
-# $Id: power.t,v 1.1 1996/03/17 08:49:33 jah Exp jah $
+# $Id: power.t,v 1.1 1996/03/17 08:49:33 jah Exp $
 #
 
 use Set::Scalar;

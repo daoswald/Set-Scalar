@@ -1,11 +1,11 @@
 #
-# $Id: Scalar.pm,v 1.2 1996/03/17 11:03:27 jah Exp jah $
+# $Id: Scalar.pm,v 1.3 1996/05/17 06:37:09 jah Exp $
 #
 # Module:	Set::Scalar.pm
 #
 # Author:	Jarkko Hietaniemi <Jarkko.Hietaniemi@iki.fi>
 #
-# Release:	0.002
+# Release:	0.003
 #
 # Purpose:	provide the basic set operations for Perl
 #		scalar/reference data.
@@ -16,14 +16,18 @@
 #
 # EXPORT_OK:	see below.
 #
-# Public:	&new &inverse &null &universal
-#		&members &values &valued_members &grep &map
-#		&union &intersection &difference &symmetric_difference
-#		&difference &as_string &display_attr
-#		&insert &delete &in &power_set
+# Public:	&new &inverse(unary -) &null &universal
+# (overloads)	&members &values &valued_members &grep &map
+#		&union(+) &intersection(*) &difference(binary -)
+#		&symmetric_difference(%)
+#		&as_string("") &display_attr
+#		&insert(+=) &delete(-=)
+#		&in &power_set
 #		&is_null &is_universal &is_valued
-#		&compare &equal &disjoint &proper_subset &proper_superset
-#		&subset &superset &intersect &DESTROY
+#		&compare(<=>) &equal(==) &disjoint(!=)
+#		&proper_subset(<) &proper_superset(>)
+#		&subset(<=) &superset(>=)
+#		&intersect &DESTROY
 #
 # Private:	&_merge &_underload &_members
 #		&_power
@@ -61,6 +65,9 @@ use overload
     '*'   =>		'intersection',
     '%'   =>		'symmetric_difference',
     '-'   =>		'difference',
+    '='  =>		'copy',
+    '+='  =>		'insert',
+    '-='  =>		'delete',
     '<=>' =>		'compare',
     '=='  =>		'equal',
     '!='  =>		'disjoint',
@@ -76,6 +83,9 @@ use overload
      intersection
      symmetric_difference
      difference
+     copy
+     insert
+     delete
      in
      compare
      equal
@@ -181,7 +191,8 @@ especially when having simultaneously any two of the X, Y, Z, being
 identical in members except the other being inverted, or one the
 X, Y, Z, being the null set.
 
-Modifying sets C<in-place> is done with C<insert> and C<delete>.
+Modifying sets C<in-place> is done with C<insert> and C<delete>
+or their overload counterparts C<+=> and C<-=>.
 Testing for membership is done with C<in>.
 
     print "a  = $a\n";
@@ -325,7 +336,7 @@ generated with C<power_set>.
     $p = $a->power_set;
     print "p = $p\n";
 
-Displaying sets can be fine-tuned either per set or changed
+Displaying sets can be fine-tuned either per set or by changing
 the global default display attributes using the C<display_attr>
 with two arguments. The display attributes can be examined
 using the C<display_attr> with one argument.
@@ -908,6 +919,8 @@ sub insert {
   for $k (keys %{$m->{'_set'}}) {
     $s->{'_set'}->{$k} = undef;
   }
+ 
+  $s;
 }
 
 sub delete {
@@ -919,6 +932,8 @@ sub delete {
   for $k (keys %{$m->{'_set'}}) {
     delete $s->{'_set'}->{$k};
   }
+
+  $s;
 }
 
 sub in {
@@ -960,6 +975,7 @@ sub copy {
 }
 
 sub DESTROY {
+ # print "${SELF}::DESTROY(@_)\n";
 }
 
 1;

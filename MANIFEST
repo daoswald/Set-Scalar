@@ -6,6 +6,8 @@ Makefile.PL
 t/compare.t
 t/create.t
 t/dispattr.t
+t/insdel.t
+t/laws.t
 t/members.t
 t/modify.t
 t/op.t
@@ -14,9 +16,12 @@ t/test.t
 Set/Scalar.pm,v
 README,v
 LAWS,v
+ChangeLog
 Makefile.PL,v
 t/compare.t,v
 t/create.t,v
+t/insdel.t,v
+t/laws.t,v
 t/dispattr.t,v
 t/members.t,v
 t/modify.t,v

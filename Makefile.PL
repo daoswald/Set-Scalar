@@ -1,5 +1,5 @@
 #
-# $Id: Makefile.PL,v 1.2 1996/03/17 14:00:01 jah Exp $
+# $Id: Makefile.PL,v 1.3 1996/05/17 06:13:47 jah Exp $
 #
 
 use ExtUtils::MakeMaker;
@@ -7,5 +7,5 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     'NAME'	=> 'Set::Scalar',
-    'VERSION'	=> '0.002'
+    'VERSION'	=> '0.003'
 );
