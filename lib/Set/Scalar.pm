@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = 1.04;
+$VERSION = 1.05;
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -118,6 +118,26 @@ their arguments.  For two sets they are identical but for more than
 two sets beware: C<symmetric_difference> returns true for elements
 that are in an odd number (1, 3, 5, ...) of sets, C<unique> returns
 true for elements that are in one set.
+
+Here are examples of the various set differences:
+
+    set or difference                   value
+
+    $a                                  (a b c d e)
+    $b                                  (c d e f g)
+    $c                                  (e f g h i)
+
+    $a->difference($b)                  (a b)
+    $a->symmetric_difference($b)        (a b f g)
+    $a->unique($b)                      (a b f g)
+
+    $b->difference($a)                  (f g)
+    $b->symmetric_difference($a)        (a b f g)
+    $b->unique($a)                      (a b f g)
+
+    $a->difference($b, $c)              (a b)
+    $a->symmetric_difference($b, $c)    (a b e h i)
+    $a->unique($b, $c)                  (a b h i)
 
 =head2 Comparing
 

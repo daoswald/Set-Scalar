@@ -1,5 +1,12 @@
 Thu Jan 18 08:24:20 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
+	* Add examples of the set differences.
+
+	* NOTE: unique now returns a set, not a list of elements,
+	  as it was documented and intended.
+	
+	* Released as 1.05.
+
 	* unique() was rather broken, reported by Malcolm Purvis.
 	
 	* Released as 1.04.
