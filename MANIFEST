@@ -13,11 +13,14 @@ README
 t/basic.t
 t/basic_overload.t
 t/boolean.t
+t/clear.t
 t/compare.t
 t/difference.t
 t/each.t
+t/has.t
 t/intersection.t
 t/laws.t
+t/member.t
 t/misc.t
 t/set_set.t
 t/symmdiff.t

@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.12';
+$VERSION = '1.13';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -60,12 +60,15 @@ Set::Scalar - basic set operations
     $s = Set::Scalar->new(@members); 
 
     $t = $s->clone;
+    $t = $s->copy; # clone of clone
 
 =head2 Modifying
 
     $s->insert(@members);
     $s->delete(@members);
     $s->invert(@members); # insert if hasn't, delete if has
+
+    $s->clear; # removes all the elements
 
 =head2 Displaying
 
@@ -81,19 +84,21 @@ You can even display recursive sets.
     @members  = $s->members;
     @elements = $s->elements; # alias for members
 
-    $size = $s->size;
+    $size = $s->size; # the number of members
 
-    if ($s->member($member)) { ...
+    $s->has($m)       # return true if has that member
+    $s->contains($m)  # alias for has
 
-    $s->element  # alias for member
-    $s->has      # alias for member
-    $s->contains # alias for member
+    if ($s->has($member)) { ... }
 
-    $s->is_null
-    $s->is_universal
+    $s->member($m)    # returns the member if has that member
+    $s->element($m)   # alias for member
 
-    $s->null	 # the null set
-    $s->universe # the universe of the set
+    $s->is_null       # returns true if the set is empty
+    $s->is_universal  # returns true if the set is universal
+
+    $s->null	      # the null set
+    $s->universe      # the universe of the set
 
 =head2 Deriving
 

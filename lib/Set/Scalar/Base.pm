@@ -141,8 +141,16 @@ sub element {
 }
 
 *member   = \&element;
-*has      = \&element;
-*contains = \&element;
+
+sub has {
+    my $self = shift;
+
+    my @has = map { exists $self->{'elements'}->{ $_ } } @_;
+
+    return wantarray ? @has : @_ > 1 ? grep { $_ } @has : $has[0];
+}
+
+*contains = \&has;
 
 sub each {
     my $self = shift;
@@ -173,6 +181,13 @@ sub clone {
 }
 
 *copy = \&clone;
+
+sub clear {
+    my $self = shift;
+
+    undef %{ $self };
+    undef @{ $self }{ "as_string" };
+}
 
 sub _union ($$) {
     my ($this, $that) = @_;
