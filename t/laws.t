@@ -1,103 +1,149 @@
-#
-# $Id: laws.t,v 1.3 1996/05/17 06:13:29 jah Exp $
-#
-use Set::Scalar;
+use Set::Scalar 0.9;
 
-print "1..2375\n";
-
-$no_create_test = 0; # fool -w
-$no_create_test = 1;
-
-require 't/create.t'; # $a $b $i $n $u get created
+use strict;
 
 $| = 1;
 
 print STDERR "(WARNING: this will take a while)...";
 
-$t = 1;
+my $t = 1;
 
-# these are expected to fail because of the "universal trouble"
-@expected{qw(141 217 522 674 712 731 807 1091 1130 1167 1358 1566 1642)} = 1;
+use Carp;
 
-sub ok {
-    my ($l, $p, $q) = @_;
+sub bite_dust { confess @_ }
 
-    print "# $l: $x $y $z: $p $q\n";
-    print 'not ' if (not ($p == $q) and not exists $expected{$t});
-    print "ok $t\n";
-    $t++;
+local $SIG{__DIE__ } = \&bite_dust;
+
+my $a = Set::Scalar->new("a", "b", "c");
+my $b = Set::Scalar->new("c", "d", "e");
+my $c = Set::Scalar->new("e", "f", "g");
+my $n = $a->null;
+my $u = $a->universe;
+
+sub check {
+    my ($l, $p, $q, $x, $y, $z) = @_;
+
+    print "# $l\n";
+    unless ($p == $q || ($p->size == 0 && $p->size == $q->size)) {
+        print "# got $p, expected $q\n";
+        print "# x = $x, y = $y, z = $z, n = $n, u = $u\n";
+	print "not $t\n";
+	exit(1);
+    }
+    print "ok ", $t++, "\n";
 }
 
-for $x ($a, $b, $i, $n, $u) {
-    for $y ($a, $b, $i, $n, $u) {
-	for $z ($a, $b, $i, $n, $u) {
+my @a = ($a, $b, $c, $n, $u);
 
-#  1. --X == X				Law of Double Complement
-	    &ok('1', -(-$x), $x);
+print "1..", 19 * @a ** 3, "\n";
 
-#  2a. -(X + Y) == -X * -Y		DeMorgan's Laws
-	    &ok('2a', -($x + $y),-$x * -$y);
+for my $x ( @a ) {
+    for my $y ( @a ) {
+	for my $z ( @a ) {
 
-#  2b. -(X * Y) == -X + -Y		DeMorgan's Laws
-	    &ok('2b', -($x * $y), -$x + -$y);
+#  --X == X
+#	    print "# --x = ", -(-$x), "\n";
+#	    print "#   x = ",    $x , "\n";
+	    &check('Double Complement', -(-$x), $x,		$x, $y, $z);
 
-#  3a. X + Y == Y + X			Commutative Laws
-	    &ok('3a', $x + $y, $y + $x);
+#  -(X + Y) == -X * -Y
+#	    print "# -(x +  y) = -(", $x, " + ", $y, ")  = ", -($x + $y), "\n";
+#	    print "#  -x * -y  = ", -$x, " * ", -$y, " = ", -$x * -$y, "\n";
+	    &check('DeMorgan -+', -($x + $y), -$x * -$y,		$x, $y, $z);
 
-#  3b. X * Y == Y * X			Commutative Laws
-	    &ok('3b', $x * $y, $y * $x);
+#  -(X * Y) == -X + -Y
+#	    print "# -(x *  y) = -(", $x, " * ", $y, ")  = ", -($x * $y), "\n";
+#	    print "#  -x + -y  = ", -$x, " + ", -$y, " = ", -$x + -$y, "\n";
+	    &check('DeMorgan -*', -($x * $y), -$x + -$y,	$x, $y, $z);
 
-#  4a. X + (Y + Z) == (X + Y) + Z	Associative Laws
-	    &ok('4a', $x * $y, $y * $x);
+#  X + Y == Y + X
+#	    print "# x + y = ", $x + $y, "\n";
+#	    print "# y + x = ", $y + $x, "\n";
+	    &check('Commutative +', $x + $y, $y + $x,		$x, $y, $z);
 
-#  4b. X * (Y * Z) == (X * Y) * Z	Associative Laws
-	    &ok('4b', $x * $y, $y * $x);
+#  X * Y == Y * X
+#	    print "# x * y = ", $x * $y, "\n";
+#	    print "# y * x = ", $y * $x, "\n";
+	    &check('Commutative *', $x * $y, $y * $x,		$x, $y, $z);
 
-#  5a. X + (Y * Z) == (X + Y) * (X + Z)	Distributive Laws
-	    &ok('5a', $x + ($y * $z), ($x + $y) * ($x + $z));
-	    print "# y * z = ", $y * $z, "\n";
-	    print "# x + y = ", $x + $y, "\n";
-	    print "# x + z = ", $x + $z, "\n";
+#  X + (Y + Z) == (X + Y) + Z
+#	    print "# x + (y + z) = ", $x + ($y + $z), "\n";
+#	    print "# (x + y) + z = ", ($x + $y) + $z, "\n";
+	    &check('Associative +', $x + ($y + $z), ($x + $y) + $z,		$x, $y, $z);
 
-#  5b. X * (Y + Z) == (X * Y) + (X * Z)	Distributive Laws
-	    &ok('5b', $x * ($y + $z), ($x * $y) + ($x * $z));
-	    print "# y + z = ", $y + $z, "\n";
-	    print "# x * y = ", $x * $y, "\n";
-	    print "# x * z = ", $x * $z, "\n";
+#  X * (Y * Z) == (X * Y) * Z
+#	    print "#     (y * z) = ", ($y * $z),      "\n";
+#	    print "# x * (y * z) = ", $x * ($y * $z), "\n";
+#	    print "# (x * y)     = ", ($x * $y),      "\n";
+#	    print "# (x * y) * z = ", ($x * $y) * $z, "\n";
+	    &check('Associative *', $x * ($y * $z), ($x * $y) * $z,		$x, $y, $z);
 
-#  6a. X + X == X			Idempotent Laws
-	    &ok('6a', $x + $x, $x);
+#  X + (Y * Z) == (X + Y) * (X + Z)
+#	    print "#     y * z = ", $y * $z, "\n";
+#	    print "#     x + y = ", $x + $y, "\n";
+#	    print "#     x + z = ", $x + $z, "\n";
+#	    print "# x + (y * z)       = ", $x + ($y * $z), "\n";
+#	    print "# (x + y) * (x + z) = ", ($x + $y) * ($x + $z), "\n";
+	    &check('Distributive +*', $x + ($y * $z), ($x + $y) * ($x + $z),	$x, $y, $z);
 
-#  6b. X * X == X			Idempotent Laws
-	    &ok('6b', $x * $x, $x);
+#  X * (Y + Z) == (X * Y) + (X * Z)
+#	    print "# y + z = ", $y + $z, "\n";
+#	    print "# x * y = ", $x * $y, "\n";
+#	    print "# x * z = ", $x * $z, "\n";
+#	    print "# x * (y + z)       = ", $x * ($y + $z), "\n";
+#	    print "# (x * y) + (x * z) = ", ($x * $y) + ($x * $z), "\n";
+	    &check('Distributive *+', $x * ($y + $z), ($x * $y) + ($x * $z),	$x, $y, $z);
 
-#  7a. X + N == X			Identity Laws
-	    &ok('7a', $x + $n, $x);
+#  X + X == X
+#	    print "# x + x = ", $x + $x, "\n";
+#	    print "# x     = ", $x,      "\n";
+	    &check('Idempotency +', $x + $x, $x,	$x, $y, $z);
 
-#  7b. X * U == X			Identity Laws
-	    &ok('7b', $x * $u, $x);
+#  X * X == X
+#	    print "# x * x = ", $x * $x, "\n";
+#	    print "# x     = ", $x,      "\n";
+	    &check('Idempotency *', $x * $x, $x,	$x, $y, $z);
 
-#  8a. X + -X == U			Inverse Laws
-	    &ok('8a', $x + -$x, $u);
+#	    print "# x + n = ", $x + $n, "\n";
+#	    print "# x     = ", $x,      "\n";
+#  X + N == X
+	    &check('Identity +N', $x + $n, $x,		$x, $y, $z);
 
-#  8b. X * -X == N			Inverse Laws
-	    &ok('8b', $x * -$x, $n);
+#  X * U == X
+#	    print "# x * u = ", $x * $u, "\n";
+#	    print "# x     = ", $x,      "\n";
+	    &check('Identity *U', $x * $u, $x,		$x, $y, $z);
 
-#  9a. X + U == U			Domination Laws
-	    &ok('9a', $x + $u, $u);
+#  X + -X == U
+#	    print "# x + -x = ", $x + -$x, "\n";
+#	    print "# u      = ", $u,       "\n";
 
-#  9b. X * N == N			Domination Laws
-	    &ok('9b', $x * $n, $n);
+	    &check('Inverse +-', $x + -$x, $u,		$x, $y, $z);
 
-# 10a. X + (X * Y) == X			Absorption Laws
-	    &ok('10a', $x + ($x * $y), $x);
+#  X * -X == N
+#	    print "# x * -x = ", $x * -$x, "\n";
+#	    print "# n      = ", $n,       "\n";
+	    &check('Inverse *-', $x * -$x, $n,		$x, $y, $z);
 
-# 10b. X * (X + Y) == X			Absorption Laws
-	    &ok('10b', $x * ($x + $y), $x);
+#  X + U == U
+#	    print "# x + u = ", $x + $u, "\n";
+#	    print "# u     = ", $u,      "\n";
+	    &check('Domination +U', $x + $u, $u,		$x, $y, $z);
+
+#  X * N == N
+#	    print "# x * u = ", $x * $n, "\n";
+#	    print "# n     = ", $n,      "\n";
+	    &check('Domination *N', $x * $n, $n,	$x, $y, $z);
+
+# X + (X * Y) == X
+#	    print "# x + (x * y) = ", $x + ($x * $y), "\n";
+#	    print "# x           = ", $x,             "\n";
+	    &check('Absorption +*', $x + ($x * $y), $x,		$x, $y, $z);
+
+# X * (X + Y) == X
+#	    print "# x * (x + y) = ", $x * ($x + $y), "\n";
+#	    print "# x           = ", $x,             "\n";
+	    &check('Absorption *+', $x * ($x + $y), $x,		$x, $y, $z);
 	}
     }
 }
-
-
-
-# eof
