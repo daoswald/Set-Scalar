@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = 1.09;
+$VERSION = '1.10';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -171,6 +171,13 @@ These methods have operator overloads:
 =head1 AUTHOR
 
 Jarkko Hietaniemi <jhi@iki.fi>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2001 by Jarkko Hietaniemi
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
 
 =cut
 
