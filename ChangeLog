@@ -1,3 +1,11 @@
+Wed Oct 10 17:31:12 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* In boolean contexts the string representation of sets
+	  is not the best possible one, reported by Dan Berger.
+	  Now the size of the set is returned in boolean contexts.
+	  
+	* Released as 1.11.
+	  
 Fri Aug  3 15:42:38 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* 1.10: Added COPYRIGHT and LICENSE.

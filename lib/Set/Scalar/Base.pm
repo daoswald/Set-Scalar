@@ -32,7 +32,8 @@ use overload
     '<'		=> \&is_proper_subset,
     '>'		=> \&is_proper_superset,
     '<='	=> \&is_subset,
-    '>='	=> \&is_superset;
+    '>='	=> \&is_superset,
+    'bool'	=> \&size;
 
 use constant OVERLOAD_BINARY_2ND_ARG  => 1;
 use constant OVERLOAD_BINARY_REVERSED => 2;

@@ -12,6 +12,7 @@ lib/Set/Scalar/Virtual.pm
 README
 t/basic.t
 t/basic_overload.t
+t/boolean.t
 t/compare.t
 t/difference.t
 t/intersection.t

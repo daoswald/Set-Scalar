@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.10';
+$VERSION = '1.11';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -167,6 +167,13 @@ These methods have operator overloads:
     $iS = $s >= $t; # is_superset
 
     $cmp = $s <=> $t;
+
+In Boolean contexts such as
+
+    if ($set) { ... }
+
+the size of the C<$set> is tested, so empty sets test as false,
+and non-empty sets as true.
 
 =head1 AUTHOR
 
