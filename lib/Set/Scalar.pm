@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.18';
+$VERSION = '1.19';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -222,6 +222,8 @@ but instead like this
 
     while (defined(my $e = $s->each)) { ... } # right
 
+(An C<undef> as a set element doesn't really work, you get C<"">.)
+
 =item *
 
 There is one iterator per one set which is shared by many
@@ -271,13 +273,26 @@ original callback (the one returning C<(a b c d e)>) for all the sets
 is restored, or if called for a single set the callback is removed
 (and the callback for all the sets will be used).
 
+=head1 CAVEATS
+
+The first priority of Set::Scalar is to be a convenient interface to sets.
+While not designed to be slow or big, neither has it been designed to
+be fast or compact.
+
+=head1 SEE ALSO
+
+Set::Bag for bags (multisets, counted sets), and Bit::Vector for fast
+set operations (you have to take care of the element name to bit
+number and back mappings yourself), or Set::Infinite for sets of
+intervals, and many more.  CPAN is your friend.
+
 =head1 AUTHOR
 
 Jarkko Hietaniemi <jhi@iki.fi>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2001 by Jarkko Hietaniemi
+Copyright 2001,2002,2003,2004 by Jarkko Hietaniemi
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

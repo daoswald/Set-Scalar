@@ -495,7 +495,8 @@ sub is_disjoint {
     my $a = shift;
     my $b = shift;
 
-    return $a->compare($b) =~ /^disjoint( universes)?$/;
+    return $a->compare($b) eq 'disjoint' ||
+           $a->compare($b) eq 'disjoint universes';
 }
 
 sub is_equal {

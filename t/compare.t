@@ -10,7 +10,7 @@ my $x = Set::Scalar->new(qw(b c d));
 my $n = Set::Scalar->new(qw());
 my $o = Set::Scalar->new(qw());
 
-print "1..22\n";
+print "1..23\n";
 
 print "not " unless $t == $u;
 print "ok 1\n";
@@ -78,3 +78,9 @@ print "ok 21\n";
 print "not " unless $n >= $o;
 print "ok 22\n";
 
+# [cpan #5829] d
+{
+  my @d = $t->is_disjoint($v) ;
+  print "not " unless @d == 1 && $d[0];
+  print "ok 23\n";
+}

@@ -1,7 +1,18 @@
+Sun Mar 28 17:16:26 2004  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* [cpan #5829] When is_disjoint() was called in list
+	  context, and the result was disjoint (not disjoint
+	  universes), the return value was a list with one
+	  undef element, from Alexei.
+
+	* Released as 1.19.
+
 Sat Oct  4 17:56:24 2003  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Removed a cut-and-paste bug from symmetric_difference();
 	  from frederik.
+
+	* Released as 1.18. 
 
 Sat Dec  8 01:48:35 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
