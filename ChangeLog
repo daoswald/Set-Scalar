@@ -1,3 +1,9 @@
+Thu Jan 18 08:24:20 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* unique() was rather broken, reported by Malcolm Purvis.
+	
+	* Released as 1.04.
+
 Tue Oct 31 03:09:03 2000  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Use a custom overloaded data stringification routine

@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = 1.03;
+$VERSION = 1.04;
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -113,6 +113,12 @@ These methods have operator overloads:
     $v = $s / $t; # unique
     $c = -$s;     # complement
 
+Both the C<symmetric_difference> and C<unique> are symmetric on all
+their arguments.  For two sets they are identical but for more than
+two sets beware: C<symmetric_difference> returns true for elements
+that are in an odd number (1, 3, 5, ...) of sets, C<unique> returns
+true for elements that are in one set.
+
 =head2 Comparing
 
     $eq = $s->is_equal($t);
@@ -146,4 +152,5 @@ These methods have operator overloads:
 Jarkko Hietaniemi <jhi@iki.fi>
 
 =cut
+
 1;

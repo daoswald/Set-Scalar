@@ -359,29 +359,21 @@ sub complement {
     return $self->_complement;
 }
 
-sub _frequency {
-    my %frequency;
+sub _unique {
     my $universe = $_[0]->universe;
+    my %frequency;
 
-    foreach my $set ( @_ ) {
+    for my $set ( @_ ) {
 	if ($set->universe == $universe) {
-	    foreach my $element ( $set->elements ) {
+	    foreach my $element ( keys %{ $set->{ elements } } ) {
 		$frequency{ $element }++;
 	    }
 	} else {
-	    %frequency = ();
-	    last;
+	    return (ref $_[0])->new();
 	}
     }
 
-    return %frequency;
-}
-
-sub _unique {
-    my $self      = shift;
-    my %frequency = $self->_frequency( @_ );
-
-    return $self->elements( grep { $frequency{ $_ } == 1 } keys %frequency );
+    return (ref $_[0])->new(grep { $frequency{ $_ } == 1 } keys %frequency);
 }
 
 sub _unique_overload {

@@ -19,5 +19,6 @@ t/laws.t
 t/set_set.t
 t/symmdiff.t
 t/union.t
+t/unique.t
 t/universe.t
 
