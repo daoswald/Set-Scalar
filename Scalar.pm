@@ -1,43 +1,11 @@
-head	1.3;
-access;
-symbols;
-locks; strict;
-comment	@# @;
-
-
-1.3
-date	96.05.17.06.37.09;	author jah;	state Exp;
-branches;
-next	1.2;
-
-1.2
-date	96.03.17.11.03.27;	author jah;	state Exp;
-branches;
-next	1.1;
-
-1.1
-date	96.03.17.08.51.42;	author jah;	state Exp;
-branches;
-next	;
-
-
-desc
-@@
-
-
-1.3
-log
-@*** empty log message ***
-@
-text
-@#
-# $Id: Scalar.pm,v 1.2 1996/03/17 11:03:27 jah Exp jah $
+#
+# $Id: Scalar.pm,v 1.4 1998/10/05 19:28:22 jhi Exp jhi $
 #
 # Module:	Set::Scalar.pm
 #
-# Author:	Jarkko Hietaniemi <Jarkko.Hietaniemi@@iki.fi>
+# Author:	Jarkko Hietaniemi <Jarkko.Hietaniemi@iki.fi>
 #
-# Release:	0.003
+# Release:	0.004
 #
 # Purpose:	provide the basic set operations for Perl
 #		scalar/reference data.
@@ -69,7 +37,11 @@ text
 
 package Set::Scalar;
 
+$VERSION = 0.004;
+
 require 5.002;
+
+use vars qw($SELF $_NULL $_UNIVERSAL %_DISPLAY_ATTR @EXPORT_OK);
 
 $SELF = 'Set::Scalar';
 
@@ -87,7 +59,7 @@ sub _DISPLAY_SORT { $a cmp $b }
    'value_style',	'parallel',
    'value_indicator',	'=',
    'value_separator',	' ',
-   'sort',		'_DISPLAY_SORT'
+   'sort',		'_DISPLAY_SORT',
   );
 
 use overload
@@ -108,7 +80,7 @@ use overload
     '<='  =>		'subset',
     '>='  =>		'superset';
 
-@@EXPORT_OK =
+@EXPORT_OK =
   qw(
      as_string
      union
@@ -354,7 +326,7 @@ Sets can be C<grep>ed and C<map>ped.
     $g = Set::Scalar->new(keys %g);
     print "g = $g\n";
 
-    %m = $d->map(sub { my ($k, $v, $d) = @@_;
+    %m = $d->map(sub { my ($k, $v, $d) = @_;
                        $k =~ tr/a-z/A-Z/;
                        $v *= $v;
                        $d = $k ne 'G';
@@ -445,24 +417,24 @@ any particular order per se (please see the C<members> discussion).
 
 =head1 AUTHOR
 
-Jarkko Hietaniemi, Jarkko.Hietaniemi@@iki.fi
+Jarkko Hietaniemi, Jarkko.Hietaniemi@iki.fi
 
 =cut
 
 sub new {
-  my $type = (ref $_[0] or @@_ == 0) ? $SELF : shift;
+  my $type = (ref $_[0] or @_ == 0) ? $SELF : shift;
   my ($self) = {};
   my ($m, $r, %m);
 
   my (%new) = ();
   my ($i, $v) = (0, 0);
   
-  while (defined ($m = shift(@@_))) {
+  while (defined ($m = shift(@_))) {
     if ($r = ref $m) {
       if ($r eq 'HASH') {
 	%m = %{$m};
 	$v = 1;
-	@@new{keys %m} = values %m;
+	@new{keys %m} = values %m;
       } elsif ($r eq $SELF) {
 	$new{$m} = undef;
       } else {
@@ -482,43 +454,43 @@ sub new {
 }
 
 sub _underload {
-  shift if (@@_ and not ref $_[0] and $_[0] eq $SELF);
-  if (@@_ == 3) {
+  shift if (@_ and not ref $_[0] and $_[0] eq $SELF);
+  if (@_ == 3) {
     if (not defined $_[1] and $_[2] eq '') {
-      splice(@@_, 1, 2);
+      splice(@_, 1, 2);
     }
   }
 
-  @@_;
+  @_;
 }
 
 sub inverse {
   my $i;
-  my @@i;
+  my @i;
 
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
 
-  if (@@_) {
-    @@i = map { $i = new(%$_->{'_set'});
+  if (@_) {
+    @i = map { $i = new(%$_->{'_set'});
 	       $i->{'_inverted'} = ! $_->{'_inverted'};
                $i->{'_valued'} = 0;
-	       $i } @@_;
+	       $i } @_;
   } else {
     $i = new();
     $i->{'_inverted'} = ! $_->{'_inverted'};
     $i->{'_valued'} = 0;
-    @@i = ($i);
+    @i = ($i);
   }
 
-  wantarray ? @@i : $i[0];
+  wantarray ? @i : $i[0];
 }
 
 sub as_string {
-  @@_ = _underload(@@_);
-  my @@s = map {
+  @_ = _underload(@_);
+  my @s = map {
     my $set  = $_;
     my $sort = $set->{'_display_attr'}->{'sort'} || $_DISPLAY_ATTR{'sort'};
-    my @@mems = sort $sort keys %{$set->{'_set'}};
+    my @mems = sort $sort keys %{$set->{'_set'}};
     my $fmt  = $set->{'_display_attr'}->{'format'} ||
 	       $_DISPLAY_ATTR{'format'};
     my $inv  = $set->{'_inverted'} ? 
@@ -531,7 +503,7 @@ sub as_string {
     
     $str =~ s/%s/$inv/g;
 
-    if (@@mems) {
+    if (@mems) {
       my $mdsp = defined
                    $set->{'_display_attr'}->{'member_display'} ?
                    $set->{'_display_attr'}->{'member_display'} :
@@ -540,7 +512,7 @@ sub as_string {
                    $set->{'_display_attr'}->{'member_separator'} ?
                    $set->{'_display_attr'}->{'member_separator'} :
   	           $_DISPLAY_ATTR{'member_separator'};
-      my @@mdsp = (defined $mdsp) ? map { &$mdsp($_, $set) } @@mems : @@mems;
+      my @mdsp = (defined $mdsp) ? map { &$mdsp($_, $set) } @mems : @mems;
       my $mems = '';
 
       if ($set->{'_valued'}) {
@@ -556,27 +528,27 @@ sub as_string {
                      $set->{'_display_attr'}->{'value_indicator'} ?
                      $set->{'_display_attr'}->{'value_indicator'} :
 	             $_DISPLAY_ATTR{'value_indicator'};
-	my @@vdsp;
+	my @vdsp;
 
 	if ($vstl eq 'parallel') {
 	  my %set = %{$set->{'_set'}};
 	  
-	  if (defined $vdsp) { # @@@@@@: ???
-	    @@vdsp = map { "$_$vind".&$vdsp($_, $set{$_}) } @@mdsp;
+	  if (defined $vdsp) { # @@@: ???
+	    @vdsp = map { "$_$vind".&$vdsp($_, $set{$_}) } @mdsp;
 	  } else {
-	    @@vdsp = map { "$_$vind$set{$_}" } @@mdsp;
+	    @vdsp = map { "$_$vind$set{$_}" } @mdsp;
 	  }
-          $mems = join($msep, @@vdsp);
+          $mems = join($msep, @vdsp);
 	} elsif ($vstl eq 'serial') {
 	  my $vsep = $set->{'_display_attr'}->{'value_separator'} ||
   	             $_DISPLAY_ATTR{'value_separator'};
-	  my @@vals = @@{$set->{'_set'}}{@@mems};
+	  my @vals = @{$set->{'_set'}}{@mems};
 
-	  @@vdsp = (defined $vdsp) ? map { &$vdsp($_, $set) } @@vals : @@vals;
-	  $mems = join($msep, @@mdsp) . $vind . join($vsep, @@vdsp);
+	  @vdsp = (defined $vdsp) ? map { &$vdsp($_, $set) } @vals : @vals;
+	  $mems = join($msep, @mdsp) . $vind . join($vsep, @vdsp);
 	}
       } else {
-	$mems = join($msep, @@mdsp);
+	$mems = join($msep, @mdsp);
       }
 
       $str =~ s/%m/$mems/g;
@@ -605,22 +577,22 @@ sub as_string {
     }
 
     $str;
-  } @@_;
+  } @_;
 
-  wantarray ? @@s : $s[0];
+  wantarray ? @s : $s[0];
 }
 
 sub display_attr {
-  shift(@@_) if (not ref $_[0] and $_[0] eq $SELF);
+  shift(@_) if (not ref $_[0] and $_[0] eq $SELF);
   my $r = ref $_[0];
   
-  if (@@_ == 1) {
+  if (@_ == 1) {
     if ($r eq $SELF) {
       keys %{$_[0]->{'_display_attr'}};
     } else {
       $_DISPLAY_ATTR{$_[0]};
     }
-  } elsif (@@_ == 2) {
+  } elsif (@_ == 2) {
     if ($r eq $SELF) {
       defined ${_[0]}->{'_display_attr'}->{$_[1]} ?
               ${_[0]}->{'_display_attr'}->{$_[1]} :
@@ -628,11 +600,11 @@ sub display_attr {
     } else {
       $_DISPLAY_ATTR{$_[0]} = $_[1];
     }
-  } elsif (@@_ == 3) {
+  } elsif (@_ == 3) {
     $_[0]->{'_display_attr'}->{$_[1]} = $_[2];
   } else {
     die "${SELF}::display_attr: unknown number of arguments: ",
-        scalar @@_, "\n";
+        scalar @_, "\n";
     
   }
 }
@@ -650,43 +622,43 @@ sub universal {
 }
 
 sub is_null {
-  my @@t =
+  my @t =
     map {
       keys %{$_->{'_set'}} == 0 and not $_->{'_inverted'};
-    } @@_;
+    } @_;
 
-  wantarray ? @@t : $t[0];
+  wantarray ? @t : $t[0];
 }
 
 sub is_universal {
-  my @@t =
+  my @t =
     map {
       keys %{$_->{'_set'}} == 0 and     $_->{'_inverted'};
-    } @@_;
+    } @_;
 
-  wantarray ? @@t : $t[0];
+  wantarray ? @t : $t[0];
 }
 
 sub is_inverted {
-  my @@t =
+  my @t =
     map {
       $_->{'_inverted'} and keys %{$_->{'_set'}}
-    } @@_;
+    } @_;
 
-  wantarray ? @@t : $t[0];
+  wantarray ? @t : $t[0];
 }
 
 sub is_valued {
-  my @@t =
+  my @t =
     map {
       $_->{'_valued'};
-    } @@_;
+    } @_;
 
-  wantarray ? @@t : $t[0];
+  wantarray ? @t : $t[0];
 }
 
 sub _members {
-  my ($s, %u) = @@_;
+  my ($s, %u) = @_;
   
   if ($s->{'_inverted'}) {
     my %v = %u;
@@ -701,112 +673,112 @@ sub _members {
 }
 
 sub members {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my (%m) = ();
 
   map {
-    @@m{keys %{$_->{'_set'}}} = undef;
-  } @@_;
+    @m{keys %{$_->{'_set'}}} = undef;
+  } @_;
 
   keys %m;
 }
 
 sub values {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my (%m) = ();
 
   map {
-    @@m{values %{$_->{'_set'}}} = undef;
-  } @@_;
+    @m{values %{$_->{'_set'}}} = undef;
+  } @_;
 
   keys %m;
 }
 
 sub valued_members {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my (%m) = ();
 
   map {
-    @@m{keys %{$_->{'_set'}}} = values %{$_->{'_set'}};
-  } @@_;
+    @m{keys %{$_->{'_set'}}} = CORE::values %{$_->{'_set'}};
+  } @_;
 
   %m;
 }
 
 sub grep {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my $g;
   my (%m) = ();
   my $k;
 
-  $g = (@@_ == 2 and ref $_[1] eq 'CODE') ? splice(@@_, 1, 1) : shift(@@_);
+  $g = (@_ == 2 and ref $_[1] eq 'CODE') ? splice(@_, 1, 1) : shift(@_);
 
   map {
     for $k (keys %{$_->{'_set'}}) {
       $m{$k} = $_->{'_set'}->{$k} if (&{$g}($k, $_->{'_set'}->{$k}));
     }
-  } @@_;
+  } @_;
 
   %m;
 }
 
 sub map {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my $m;
   my (%m) = ();
   my ($k, $v, $d);
 
-  $m = (@@_ == 2 and ref $_[1] eq 'CODE') ? splice(@@_, 1, 1) : shift(@@_);
+  $m = (@_ == 2 and ref $_[1] eq 'CODE') ? splice(@_, 1, 1) : shift(@_);
 
   map {
     for $k (keys %{$_->{'_set'}}) {
       ($k, $v, $d) = &{$m}($k, $_->{'_set'}->{$k});
       $m{$k} = $v if ($d);
     }
-  } @@_;
+  } @_;
 
   %m;
 }
 
 sub _power {
-  my ($p, $i, $n, $m, $a) = @@_;
-  my @@a = @@{$a};
+  my ($p, $i, $n, $m, $a) = @_;
+  my @a = @{$a};
 
   if ($i--) {
-    _power($p, $i, $n, $m, [ @@a ]);
-    _power($p, $i, $n, $m, [ @@{$m}[$i], @@a ]);
+    _power($p, $i, $n, $m, [ @a ]);
+    _power($p, $i, $n, $m, [ @{$m}[$i], @a ]);
   } else {
-    push(@@{$p}, new($SELF, @@a));
+    push(@{$p}, new($SELF, @a));
   }
 }
 
 sub power_set {
-  @@_ = _underload(@@_);
-  my $m = _merge('union', @@_);
-  my @@m = keys %{$m->{'_set'}};
-  my $s = new(@@m);
-  my $n = @@m;
+  @_ = _underload(@_);
+  my $m = _merge('union', @_);
+  my @m = keys %{$m->{'_set'}};
+  my $s = new(@m);
+  my $n = @m;
   my $p = [];
 
-  _power($p, $n, $n, \@@m, []);
+  _power($p, $n, $n, \@m, []);
 
-  new($SELF, @@{$p});
+  new($SELF, @{$p});
 }
 
 sub compare {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
 
-  my ($a, $b, $na, $nb, %nab, @@ka, @@kb, $nab, $nple, $tuple, $c);
+  my ($a, $b, $na, $nb, %nab, @ka, @kb, $nab, $nple, $tuple, $c);
   my (%u) = ();
 
-  for $a (@@_) {
-    @@u{keys %{$a->{'_set'}}} = undef;
+  for $a (@_) {
+    @u{keys %{$a->{'_set'}}} = undef;
   }
 
   $a = shift;
 
-  @@ka = _members($a, %u);
-  $na = @@ka;
+  @ka = _members($a, %u);
+  $na = @ka;
 
   $nple = undef;
 
@@ -815,11 +787,11 @@ sub compare {
     tuple: {
       $b = shift;
 
-      @@kb = _members($b, %u);
-      $nb = @@kb;
+      @kb = _members($b, %u);
+      $nb = @kb;
       
       %nab = ();
-      @@nab{@@ka, @@kb} = undef;
+      @nab{@ka, @kb} = undef;
       $nab = scalar keys %nab;
 
       if ($nab and $nab == $na + $nb) {
@@ -862,50 +834,50 @@ sub compare {
     } else {
       $nple = $tuple;
     }
-    shift(@@_);
-    if (@@_) {
-      @@ka = @@kb;
+    shift(@_);
+    if (@_) {
+      @ka = @kb;
       $na = $nb;
     }
-  } while (@@_);
+  } while (@_);
 
   $nple;
 }
 
-sub equal           { compare(@@_) eq '==' }
-sub disjoint        { compare(@@_) eq '!=' }
-sub proper_subset   { compare(@@_) eq '<' }
-sub proper_superset { compare(@@_) eq '>' }
-sub subset          { my $c = compare(@@_); $c eq '<' or $c eq '<=' }
-sub superset        { my $c = compare(@@_); $c eq '>' or $c eq '>=' }
-sub intersect       { compare(@@_) eq '<>' }
+sub equal           { compare(@_) eq '==' }
+sub disjoint        { compare(@_) eq '!=' }
+sub proper_subset   { compare(@_) eq '<' }
+sub proper_superset { compare(@_) eq '>' }
+sub subset          { my $c = compare(@_); $c eq '<' or $c eq '<=' }
+sub superset        { my $c = compare(@_); $c eq '>' or $c eq '>=' }
+sub intersect       { compare(@_) eq '<>' }
 
 sub _merge {
   my ($op) = shift;
 
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
 
   my (%m, $un, $is, $sd);
-  my ($a, $k, @@ka, $is_universal);
+  my ($a, $k, @ka, $is_universal);
   my ($n, $nu) = (0, 0);
   my (%u) = ();
 
-  pop(@@_) if (@@_ == 3 and not ref $_[2] and $_[2] eq '');
+  pop(@_) if (@_ == 3 and not ref $_[2] and $_[2] eq '');
 
-  for $a (@@_) {
-    @@u{keys %{$a->{'_set'}}} = undef;
+  for $a (@_) {
+    @u{keys %{$a->{'_set'}}} = undef;
   }
 
   if (($un = $op eq 'union') or
       ($is = $op eq 'intersection') or
       ($sd = $op eq 'symmetric_difference')) {
     if ($un) {
-      for $a (@@_) {
+      for $a (@_) {
 	$is_universal = 1 if ($a->{'_inverted'} and keys %{$a->{'_set'}} == 0);
-	@@m{_members($a, %u)} = undef;
+	@m{_members($a, %u)} = undef;
       }
     } elsif ($is or $sd) {
-      for $a (@@_) {
+      for $a (@_) {
 	$n++;
 	$nu++ if ($a->{'_inverted'} and keys %{$a->{'_set'}} == 0);
 	for $k (_members($a, %u)) {
@@ -930,22 +902,22 @@ sub _merge {
   $m;
 }
 
-sub union                { _merge('union',                @@_) }
-sub intersection         { _merge('intersection',         @@_) }
-sub symmetric_difference { _merge('symmetric_difference', @@_) }
+sub union                { _merge('union',                @_) }
+sub intersection         { _merge('intersection',         @_) }
+sub symmetric_difference { _merge('symmetric_difference', @_) }
 
 sub difference {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my $f = shift;
-  my $r = _merge('union', @@_);
+  my $r = _merge('union', @_);
 
   _merge('intersection', $f, inverse($r));
 }
 
 sub insert {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my $s = shift;
-  my $m = new($SELF, @@_);
+  my $m = new($SELF, @_);
   my $k;
 
   for $k (keys %{$m->{'_set'}}) {
@@ -956,9 +928,9 @@ sub insert {
 }
 
 sub delete {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my $s = shift;
-  my $m = new($SELF, @@_);
+  my $m = new($SELF, @_);
   my $k;
 
   for $k (keys %{$m->{'_set'}}) {
@@ -969,28 +941,28 @@ sub delete {
 }
 
 sub in {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my $s = shift;
-  my $m = new($SELF, @@_);
+  my $m = new($SELF, @_);
   my $k;
-  my @@i = ();
+  my @i = ();
   
   map {
-    push(@@i, exists $s->{'_set'}->{$_});
+    push(@i, exists $s->{'_set'}->{$_});
   } keys %{$m->{'_set'}};
   
-  wantarray ? @@i : $i[0];
+  wantarray ? @i : $i[0];
 }
 
 sub copy {
-  @@_ = _underload(@@_);
+  @_ = _underload(@_);
   my ($c, $r, $m, $k);
   $m = shift;
   $r = ref $m;
   if ($r and $r eq $SELF) {
     $c = new($SELF);
     $c->{'_inverted'}     = $m->{'_inverted'};
-    $c->{'_display_attr'} = $m->{'_display_attr'};	# @@@@@@: deep copy here?
+    $c->{'_display_attr'} = $m->{'_display_attr'};	# @@@: deep copy here?
     if ($m->{'_valued'}) {
       $c->{'_valued'} = 1;
       for $k (keys %{$m->{'_set'}}) {
@@ -1007,116 +979,9 @@ sub copy {
 }
 
 sub DESTROY {
- # print "${SELF}::DESTROY(@@_)\n";
+ # print "${SELF}::DESTROY(@_)\n";
 }
 
 1;
 
 # eof
-@
-
-
-1.2
-log
-@The whole pod section rewritten.
-@
-text
-@d2 1
-a2 1
-# $Id: Scalar.pm,v 1.1 1996/03/17 08:51:42 jah Exp jah $
-d8 1
-a8 1
-# Release:	0.002
-d19 7
-a25 5
-# Public:	&new &inverse &null &universal
-#		&members &values &valued_members &grep &map
-#		&union &intersection &difference &symmetric_difference
-#		&difference &as_string &display_attr
-#		&insert &delete &in &power_set
-d27 4
-a30 2
-#		&compare &equal &disjoint &proper_subset &proper_superset
-#		&subset &superset &intersect &DESTROY
-d68 3
-d86 3
-d135 5
-d178 18
-a195 1
-Modifying sets C<in-place> is done with C<insert> and C<delete>.
-d308 3
-a310 1
-members and the values with C<valued_members> as a hash.
-d339 1
-a339 1
-Displaying sets can be fine-tuned either per set or changed
-d383 4
-a386 1
-the members alphabetically.
-d388 3
-d922 2
-d935 2
-d978 1
-@
-
-
-1.1
-log
-@Initial revision
-@
-text
-@d2 1
-a2 1
-# $Id$
-d15 1
-a15 1
-# Exports:	-
-d17 2
-d29 1
-a29 1
-#		&_power &_cartesian
-d31 1
-d72 17
-d99 18
-a116 2
-    # creating new sets
-    
-d125 3
-d131 2
-a132 1
-    # displaying sets
-d143 7
-a149 1
-    # set operations
-d163 2
-a164 1
-    # modifying sets
-d174 4
-a177 1
-    # NOTE: copying by '=' is shallow
-d185 2
-a186 1
-    # for deep copying use ->copy (or ->new($set))
-d190 2
-a191 1
-    print "a' = $a, y = $y, e = $e\n";	# the (real, deep) copy does not change
-d195 2
-a196 1
-    # testing sets
-d219 1
-a219 1
-    # comparing sets
-d221 39
-d269 8
-a276 1
-    # handling sets
-d285 2
-d299 2
-a300 1
-    # power set
-d305 6
-a310 1
-    # the display attributes
-d312 39
-d374 4
-@

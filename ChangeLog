@@ -1,8 +1,0 @@
-Fri May 17 09:33:51 1996  Jarkko Hietaniemi  <jah@optio.fno.dec.com>
-
-	* Added += and -= as overloads for insert() and delete().
-	  Test set t/insdel.t.
-
-	* Fixed few typos all over the place.
-	
-	* Created this ChangeLog.

@@ -1,11 +1,9 @@
-#
-# $Id: Makefile.PL,v 1.3 1996/05/17 06:13:47 jah Exp $
-#
+require 5;
 
 use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
+
 WriteMakefile(
-    'NAME'	=> 'Set::Scalar',
-    'VERSION'	=> '0.003'
+    'NAME'	   =>	'Set::Scalar',
+    'VERSION_FROM' =>	'Scalar.pm',
+    'dist'         => { 'COMPRESS' => 'gzip' },
 );
