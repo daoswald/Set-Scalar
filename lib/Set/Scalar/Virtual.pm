@@ -7,7 +7,7 @@ use vars qw(@ISA);
 
 @ISA = qw(Set::Scalar::Base);
 
-use Set::Scalar::Base qw(_make_elements as_string _compare);
+use Set::Scalar::Base qw(_make_elements as_string _compare _strval);
 
 use UNIVERSAL 'isa';
 
@@ -36,8 +36,8 @@ sub compare {
     my $b = shift;
 
     if (ref $a && ref $b && $a->isa(__PACKAGE__) && $b->isa(__PACKAGE__)) {
-	$a = overload::StrVal($a);
-	$b = overload::StrVal($b);
+	$a = _strval($a);
+	$b = _strval($b);
     }
 
     return _compare($a, $b);

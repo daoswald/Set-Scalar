@@ -15,7 +15,8 @@ use UNIVERSAL 'isa';
 		as_string
 		_compare is_equal
 		_binary_underload
-		_unary_underload);
+		_unary_underload
+		_strval);
 
 use overload
     '+'		=> \&_union_overload,
@@ -71,8 +72,17 @@ sub new {
     return $self;
 }
 
+sub _strval {
+    my $class = ref $_[0];
+    return $_[0] unless $class;
+    bless $_[0], 'Set::Scalar::Base::NonOverloaded';
+    my $strval = "$class($_[0])";
+    bless $_[0], $class;
+    return $strval;
+}
+
 sub _make_elements {
-    return map { (defined $_ ? overload::StrVal($_) : "") => $_ } @_;
+    return map { (defined $_ ? _strval($_) : "") => $_ } @_;
 }
 
 sub _invalidate_cached {
@@ -117,7 +127,7 @@ sub elements {
     my $self = shift;
 
     return @_ ?
-	@{ $self->{ elements } }{ map { overload::StrVal($_) } @_ } :
+	@{ $self->{ elements } }{ map { _strval($_) } @_ } :
 	values %{ $self->{ elements } };  
 }
 
@@ -523,7 +533,7 @@ sub _elements_as_string {
     my $history = shift;
 
     my @elements = $self->elements;
-    my $self_id  = overload::StrVal($self);
+    my $self_id  = _strval($self);
     my %history;
 
     %history = %{ $history } if defined $history;
@@ -535,7 +545,7 @@ sub _elements_as_string {
     my $recursive;
 
     foreach my $element (@elements) {
-	my $element_id = overload::StrVal($element);
+	my $element_id = _strval($element);
 
 	if (exists $history{ $element_id }) {
 	    if ($element_id eq $self_id) {
@@ -570,7 +580,7 @@ sub as_string {
     } else {
 	($string, my $have_reference, my $recursive) =
 	    $self->_elements_as_string(@_ ? shift :
-                                            { overload::StrVal($self) => 1 });
+                                            { _strval($self) => 1 });
 
 	$string .= $self->_element_separator . "..." if $recursive;
 

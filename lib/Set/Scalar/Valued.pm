@@ -7,7 +7,7 @@ use vars qw(@ISA);
 
 @ISA = qw(Set::Scalar::Base Set::Scalar::Real);
 
-use Set::Scalar::Base qw(_make_elements as_string);
+use Set::Scalar::Base qw(_make_elements as_string _strval);
 use Set::Scalar::Real;
 use Set::Scalar::ValuedUniverse;
 
@@ -24,7 +24,7 @@ sub _make_valued_elements {
     my %elements;
 
     while (my ($key, $value) = splice @$elements, 0, 2) {
-	$elements{ overload::StrVal($key) } = [ $key, $value ];
+	$elements{ _strval($key) } = [ $key, $value ];
     }
 
     return %elements;
@@ -61,7 +61,7 @@ sub _valued_elements {
     my $self = shift;
 
     return @_ ?
-	@{ $self->{ elements } }{ map { overload::StrVal($_) } @_ } :
+	@{ $self->{ elements } }{ map { _strval($_) } @_ } :
 	values %{ $self->{ elements } };  
 }
 

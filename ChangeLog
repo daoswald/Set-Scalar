@@ -1,3 +1,12 @@
+Tue Oct 31 03:09:03 2000  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Use a custom overloaded data stringification routine
+	  instead of overload::StrVal().  This solves the memory
+	  leak reported by Joshua Richardson <jric@yahoo-inc.com>
+	  _and_ speeds up the code by about 40%! (make test timings)
+	
+	* Released as 1.03.
+
 Fri Sep 15 18:56:08 2000  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Null sets weren't subsets of every set in comparisons.
