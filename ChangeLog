@@ -1,5 +1,10 @@
 Mon May  7 17:53:18 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
+	* Annotation mixup: The fix known as 1.08 by Mark Dilger,
+	  not Joy Koenig.
+	 
+	* Released as 1.09.
+
 	* Set::Scalar()->new() - Set::Scalar()->new() didn't equal
 	  Set::Scalar()->new(), thanks to wrong inheritance order.
 	  Spotted and most graciously fixed by Joy Koenig.
