@@ -5,11 +5,11 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.15';
+$VERSION = '1.16';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
-use Set::Scalar::Base qw(_make_elements is_equal);
+use Set::Scalar::Base qw(_make_elements is_equal as_string_callback);
 use Set::Scalar::Real;
 use Set::Scalar::Null;
 use Set::Scalar::Universe;
@@ -70,6 +70,9 @@ Set::Scalar - basic set operations
 
     $s->clear; # removes all the elements
 
+Note that clear() only releases the memory used by the set to
+be reused by Perl; it will not reduce the overall memory use.
+
 =head2 Displaying
 
     print $s, "\n";
@@ -78,6 +81,8 @@ The display format of a set is the members of the set separated by
 spaces and enclosed in parentheses ().
 
 You can even display recursive sets.
+
+See L</"Customising Display"> for customising the set display.
 
 =head2 Querying
 
@@ -232,6 +237,30 @@ or duplicated, or in the worst case, an endless loop; so don't do
 that, either.
 
 =back
+
+=head2 Customising Display
+
+If you want to customise the display routine you will have to
+modify the C<as_string> callback.  You can modify it either
+for all sets
+
+    Set::Scalar->as_string_callback(sub { ... });
+
+or for specific sets
+
+    $s->as_string_callback(sub { ... });
+
+The anonymous subroutine gets as its first argument the set.
+For example to display C<a-b-c-d-e> instead of C<(a b c d e)>
+
+    $s->as_string_callback(sub{join("-",sort shift->elements)});
+
+If called without an argument, the current callback is returned.
+
+If called with undef as the only argument, the original callback
+(the one returning C<(a b c d e)>) for all the sets is restored,
+or for a single set the callback is removed (and the callback for
+all the sets will be used).
 
 =head1 AUTHOR
 

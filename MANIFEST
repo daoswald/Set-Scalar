@@ -15,6 +15,7 @@ t/basic_overload.t
 t/boolean.t
 t/clear.t
 t/compare.t
+t/custom_display.t
 t/difference.t
 t/each.t
 t/has.t

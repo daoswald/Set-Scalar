@@ -13,6 +13,7 @@ use UNIVERSAL 'isa';
 
 @EXPORT_OK = qw(_make_elements
 		as_string
+		as_string_callback
 		_compare is_equal
 		_binary_underload
 		_unary_underload
@@ -612,19 +613,19 @@ sub _elements_as_string {
 	    $recursive);
 }
 
-sub as_string {
+my $AS_STRING_CALLBACK = sub {
     my $self = shift;
 
-    my $string;
+    my $string = '';
 
     if (exists $self->{'as_string'}) {
 	$string = $self->{'as_string'};
     } else {
-	($string, my $have_reference, my $recursive) =
+	($string, my $have_reference, my $is_recursive) =
 	    $self->_elements_as_string(@_ ? shift :
                                             { _strval($self) => 1 });
 
-	$string .= $self->_element_separator . "..." if $recursive;
+	$string .= $self->_element_separator . "..." if $is_recursive;
 
 	$string = sprintf $self->_set_format, $string;
 
@@ -632,6 +633,40 @@ sub as_string {
     }
 
     return $string;
+};
+
+my $as_string_callback = $AS_STRING_CALLBACK;
+
+sub as_string_callback {
+    my $arg = shift;
+
+    if (ref $arg) {
+	if (@_) {
+	    $arg->{'as_string_callback'} = shift;
+	    delete $arg->{'as_string_callback'}
+	        unless defined $arg->{'as_string_callback'};
+	} else {
+	    return $arg->{'as_string_callback'};
+	}
+    } else {
+	if (@_) {
+	    $as_string_callback = shift;
+	    $as_string_callback = $AS_STRING_CALLBACK
+	        unless defined $as_string_callback;
+	} else {
+	    return $as_string_callback;
+	}
+    }
+}
+
+sub as_string {
+    my $self = shift;
+
+    if (exists $self->{'as_string_callback'}) {
+	return $self->{'as_string_callback'}->($self, @_);
+    } else {
+	return $as_string_callback->($self, @_);
+    }
 }
 
 sub _element_separator {
