@@ -1,3 +1,9 @@
+Mon Oct 22 20:18:56 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* Released as 1.15. 
+
+	* Documentation and whitespace nits: 1.14.
+
 Sat Oct 20 02:56:21 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* Changed has(0 and contains() to return boolean,
