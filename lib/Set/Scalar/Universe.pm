@@ -27,7 +27,7 @@ sub universe {
 sub null {
     my $self = shift;
 
-    return $self->{ null };
+    return $self->{'null'};
 }
 
 sub enter {
@@ -40,8 +40,8 @@ sub _new_hook {
     my $self     = shift;
     my $elements = shift;
 
-    $self->{ universe } = $UNIVERSE;
-    $self->{ null     } = Set::Scalar::Null->new( $self );
+    $self->{'universe'} = $UNIVERSE;
+    $self->{'null'    } = Set::Scalar::Null->new( $self );
 
     $self->_extend( { _make_elements( @$elements ) } );
 }

@@ -25,9 +25,9 @@ sub _new_hook {
 sub universe {
     my $self = shift;
 
-    $self->{ universe } = shift if @_;
+    $self->{'universe'} = shift if @_;
 
-    return $self->{ universe };
+    return $self->{'universe'};
 }
 
 sub elements {

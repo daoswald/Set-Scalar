@@ -46,7 +46,7 @@ sub _new_hook {
     my $self     = shift;
     my $elements = shift;
 
-    $self->{ universe } = Set::Scalar::ValuedUniverse->universe;
+    $self->{'universe'} = Set::Scalar::ValuedUniverse->universe;
 
     $self->_insert( { _make_valued_elements( $elements ) } );
 }
@@ -61,8 +61,8 @@ sub _valued_elements {
     my $self = shift;
 
     return @_ ?
-	@{ $self->{ elements } }{ map { _strval($_) } @_ } :
-	values %{ $self->{ elements } };  
+	@{ $self->{'elements'} }{ map { _strval($_) } @_ } :
+	values %{ $self->{'elements'} };  
 }
 
 sub valued_elements {
@@ -77,7 +77,7 @@ sub value {
     my $self   = shift;
     my $member = shift;
 
-    return $self->{ elements }->{ $member };
+    return $self->{'elements'}->{ $member };
 }
 
 sub elements {
@@ -110,13 +110,13 @@ sub _elements_as_string {
 sub _value_separator {
     my $self = shift;
 
-    return $self->{ display }->{ value_separator }
-        if exists $self->{ display }->{ value_separator };
+    return $self->{'display'}->{'value_separator'}
+        if exists $self->{'display'}->{'value_separator'};
 
     my $universe = $self->universe;
 
-    return $universe->{ display }->{ value_separator }
-        if exists $universe->{ display }->{ value_separator };
+    return $universe->{'display'}->{'value_separator'}
+        if exists $universe->{'display'}->{'value_separator'};
 
     return (ref $self)->VALUE_SEPARATOR;
 }

@@ -36,7 +36,7 @@ sub _delete {
     my $self     = shift;
     my $elements = shift;
 
-    delete @{ $self->{ elements } }{ keys %$elements };
+    delete @{ $self->{'elements'} }{ keys %$elements };
 
     $self->_invalidate_cached;
 
@@ -62,10 +62,10 @@ sub _invert {
     my $elements = shift;
 
     foreach my $element ( keys %$elements ) {
-	if ( exists $self->{ elements }->{ $element } ) {
-	    delete $self->{ elements }->{ $element };
+	if ( exists $self->{'elements'}->{ $element } ) {
+	    delete $self->{'elements'}->{ $element };
 	} else {
-	    $self->{ elements }->{ $element } = $elements->{ $element };
+	    $self->{'elements'}->{ $element } = $elements->{ $element };
 	}
     }
 
@@ -111,8 +111,8 @@ sub fill {
 sub DESTROY {
     my $self = shift;
 
-    delete $self->{ null     };
-    delete $self->{ universe };
+    delete $self->{'null'    };
+    delete $self->{'universe'};
 
     $self->clear;
 }

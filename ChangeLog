@@ -1,14 +1,20 @@
+Sat Feb 10 00:54:29 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
+
+	* Make the code Perl 5.00404-proof, patch from Ed Grimm.
+	
+	* Released as 1.06.
+
 Thu Jan 18 08:24:20 2001  Jarkko Hietaniemi  <jhi@alpha.hut.fi>
 
 	* Add examples of the set differences.
 
 	* NOTE: unique now returns a set, not a list of elements,
 	  as it was documented and intended.
-	
+
 	* Released as 1.05.
 
 	* unique() was rather broken, reported by Malcolm Purvis.
-	
+
 	* Released as 1.04.
 
 Tue Oct 31 03:09:03 2000  Jarkko Hietaniemi  <jhi@iki.fi>
@@ -17,7 +23,7 @@ Tue Oct 31 03:09:03 2000  Jarkko Hietaniemi  <jhi@iki.fi>
 	  instead of overload::StrVal().  This solves the memory
 	  leak reported by Joshua Richardson <jric@yahoo-inc.com>
 	  _and_ speeds up the code by about 40%! (make test timings)
-	
+
 	* Released as 1.03.
 
 Fri Sep 15 18:56:08 2000  Jarkko Hietaniemi  <jhi@iki.fi>
@@ -30,7 +36,7 @@ Fri Sep 15 18:56:08 2000  Jarkko Hietaniemi  <jhi@iki.fi>
 2000-04-15  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Make to work with perl 5.6.0.
-	
+
 	* Release as 1.01 as no bug reports have been seen for many moons.
 
 1999-09-24  Jarkko Hietaniemi  <jhi@iki.fi>
@@ -40,7 +46,7 @@ Fri Sep 15 18:56:08 2000  Jarkko Hietaniemi  <jhi@iki.fi>
 	  not "(a (b (a ...)) (c ...))" as expected.  Nondeterminism
 	  in stringification.  Not yet resolved but the test hacked
 	  to allow either (for subtests #5 and #6).
-	
+
 	* Timothy Kimball <kimball@stsci.edu> reported that Set::Scalar 0.9
 	  had the super/subsetness the wrong way round.  Fixed.
 

@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = 1.05;
+$VERSION = 1.06;
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -119,7 +119,7 @@ two sets beware: C<symmetric_difference> returns true for elements
 that are in an odd number (1, 3, 5, ...) of sets, C<unique> returns
 true for elements that are in one set.
 
-Here are examples of the various set differences:
+Some examples of the various set differences:
 
     set or difference                   value
 
@@ -153,7 +153,8 @@ Here are examples of the various set differences:
 
 The C<compare> method returns a string from the following list:
 "equal", "disjoint", "proper subset", "proper superset", "proper
-intersect", and in future, "disjoint universes".
+intersect", and in future (once I get around implementing it),
+"disjoint universes".
 
 These methods have operator overloads:    
 

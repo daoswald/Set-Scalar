@@ -106,7 +106,7 @@ sub _insert_elements {
     my $self     = shift;
     my $elements = shift;
 
-    @{ $self->{ elements } }{ keys %$elements } = values %$elements;
+    @{ $self->{'elements'} }{ keys %$elements } = values %$elements;
 
     $self->_invalidate_cached;
 }
@@ -114,21 +114,21 @@ sub _insert_elements {
 sub universe {
     my $self = shift;
 
-    return $self->{ universe };
+    return $self->{'universe'};
 }
 
 sub size {
     my $self = shift;
 
-    return scalar keys %{ $self->{ elements } };
+    return scalar keys %{ $self->{'elements'} };
 }
 
 sub elements {
     my $self = shift;
 
     return @_ ?
-	@{ $self->{ elements } }{ map { _strval($_) } @_ } :
-	values %{ $self->{ elements } };  
+	@{ $self->{'elements'} }{ map { _strval($_) } @_ } :
+	values %{ $self->{'elements'} };
 }
 
 *members = \&elements;
@@ -147,17 +147,17 @@ sub _clone {
     my $self     = shift;
     my $original = shift;
 
-    $self->{ universe } = $original->{ universe };
+    $self->{'universe'} = $original->{'universe'};
 
-    $self->{ null     } = $original->{ null     };
+    $self->{'null'    } = $original->{'null'    };
 
-    $self->_insert( $original->{ elements } );
+    $self->_insert( $original->{'elements'} );
 }
 
 sub clone {
     my $self  = shift;
     my $clone = (ref $self)->new;
-    
+
     $clone->_clone( $self );
 
     return $clone;
@@ -342,7 +342,7 @@ sub _complement {
 
     $complement->delete( $self->elements );
 
-    return $complement;    
+    return $complement;
 }
 
 sub _complement_overload {
@@ -365,7 +365,7 @@ sub _unique {
 
     for my $set ( @_ ) {
 	if ($set->universe == $universe) {
-	    foreach my $element ( keys %{ $set->{ elements } } ) {
+	    foreach my $element ( keys %{ $set->{'elements'} } ) {
 		$frequency{ $element }++;
 	    }
 	} else {
@@ -498,7 +498,7 @@ sub cmp {
 sub have_same_universe {
     my $self     = shift;
     my $universe = $self->universe;
-    
+
     foreach my $set ( @_ ) {
 	return 0 unless $set->universe == $universe;
     }
@@ -566,8 +566,8 @@ sub as_string {
 
     my $string;
 
-    if (exists $self->{ as_string }) {
-	$string = $self->{ as_string };
+    if (exists $self->{'as_string'}) {
+	$string = $self->{'as_string'};
 	# print "from cache: $string\n";
     } else {
 	($string, my $have_reference, my $recursive) =
@@ -578,7 +578,7 @@ sub as_string {
 
 	$string = sprintf $self->_set_format, $string;
 
-	$self->{ as_string } = $string unless $have_reference;
+	$self->{'as_string'} = $string unless $have_reference;
     }
 
     return $string;
@@ -587,13 +587,13 @@ sub as_string {
 sub _element_separator {
     my $self = shift;
 
-    return $self->{ display }->{ element_separator }
-        if exists $self->{ display }->{ element_separator };
+    return $self->{'display'}->{'element_separator'}
+        if exists $self->{'display'}->{'element_separator'};
 
     my $universe = $self->universe;
 
-    return $universe->{ display }->{ element_separator }
-        if exists $universe->{ display }->{ element_separator };
+    return $universe->{'display'}->{'element_separator'}
+        if exists $universe->{'display'}->{'element_separator'};
 
     return (ref $self)->ELEMENT_SEPARATOR;
 }
@@ -601,13 +601,13 @@ sub _element_separator {
 sub _set_format {
     my $self = shift;
 
-    return $self->{ display }->{ set_format }
-        if exists $self->{ display }->{ set_format };
+    return $self->{'display'}->{'set_format'}
+        if exists $self->{'display'}->{'set_format'};
 
     my $universe = $self->universe;
 
-    return $universe->{ display }->{ set_format }
-        if exists $universe->{ display }->{ set_format };
+    return $universe->{'display'}->{'set_format'}
+        if exists $universe->{'display'}->{'set_format'};
 
     return (ref $self)->SET_FORMAT;
 }
