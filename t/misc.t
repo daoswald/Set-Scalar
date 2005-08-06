@@ -1,6 +1,6 @@
 use Set::Scalar;
 
-print "1..2\n";
+print "1..3\n";
 
 {
 	# Malcolm Purvis <malcolm.purvis@alcatel.com.au>
@@ -22,4 +22,13 @@ print "1..2\n";
 	my $s4 = $s2->difference($s3);
 	print "not " unless $s4 eq "(A B)";
 	print "ok 2\n";
+}
+
+{
+	# Josh@allDucky.com
+	use Set::Scalar;
+	my $x = new Set::Scalar( [] );
+	my @m = $x->members;
+	print "not " unless $m[0] =~ /^ARRAY\(0x[0-9a-fA-F]+\)$/;
+	print "ok 3\n";
 }

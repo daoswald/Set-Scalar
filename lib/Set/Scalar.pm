@@ -5,7 +5,9 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.19';
+$VERSION = '1.20';
+
+use Scalar::Util qw(blessed refaddr);
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -278,6 +280,12 @@ is restored, or if called for a single set the callback is removed
 The first priority of Set::Scalar is to be a convenient interface to sets.
 While not designed to be slow or big, neither has it been designed to
 be fast or compact.
+
+Using references (or objects) as set members has not been extensively
+tested.  The desired semantics are not always clear: what should
+happen when the elements behind the references change? Especially
+unclear is what should happen when the objects start having their
+own stringification overloads.
 
 =head1 SEE ALSO
 

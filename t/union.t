@@ -1,6 +1,6 @@
 use Set::Scalar;
 
-print "1..16\n";
+print "1..19\n";
 
 my $a = Set::Scalar->new("a".."e");
 my $b = Set::Scalar->new("c".."g");
@@ -65,3 +65,16 @@ print "ok 15\n";
 print "not " unless $a eq "(a b c d e)";
 print "ok 16\n";
 
+{
+	# Josh@allDucky.com
+	my $x = new Set::Scalar(1,2,3);
+	my $y = new Set::Scalar(1,2,3,5);
+	my $u = $x->union($y);
+	$u->insert(4);
+	print "not " unless $x eq "(1 2 3)";
+	print "ok 17\n";
+	print "not " unless $u eq "(1 2 3 4 5)";
+	print "ok 18\n";
+	print "not " unless $y eq "(1 2 3 5)";
+	print "ok 19\n";
+}

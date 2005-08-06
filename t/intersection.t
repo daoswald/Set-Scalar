@@ -1,6 +1,6 @@
 use Set::Scalar;
 
-print "1..20\n";
+print "1..23\n";
 
 my $a = Set::Scalar->new("a".."e");
 my $b = Set::Scalar->new("c".."g");
@@ -80,6 +80,20 @@ print "ok 19\n";
 
 print "not " unless $a eq "(a b c d e)";
 print "ok 20\n";
+
+{
+	# Josh@allDucky.com
+	my $x = new Set::Scalar(1,2,3);
+	my $y = new Set::Scalar(1,2,3,5);
+	my $i = $x->intersection($y);
+	$i->insert(4);
+	print "not " unless $x eq "(1 2 3)";
+	print "ok 21\n";
+	print "not " unless $i eq "(1 2 3 4)";
+	print "ok 22\n";
+	print "not " unless $y eq "(1 2 3 5)";
+	print "ok 23\n";
+}
 
 
 

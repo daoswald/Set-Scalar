@@ -1,3 +1,32 @@
+Sat Aug	 6 12:39:43 2005  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* [cpan #13816] Set::Scalar blesses unblessed refs
+
+	  A genuine bug, the suggsted fix used, but then again Set::Scalar
+	  was never designed or tested be used with references as the set
+	  members.  I would not recommend doing that unless much more
+	  testing has been conducted.  A test added to misc.t for that,
+	  and a warning about using references as the set members added
+	  to the pod.
+	
+	* [cpan #13856] funny behavior in Set::Scalar::Base::intersection and Set::Scalar::Base::union
+
+	  A genuine bug, but the suggested fix as-is would break
+	  the special cases of intersecting with the null set and
+	  unioning with the universal set.
+	  A slightly enhanced version of the fix used instead,
+	  tests added to intersection.t and union.t.
+	
+	* [cpan #13857] Set::Scalar::Base::_binary_underload bug
+
+	  Not really a bug.  The _binary_underload() method is only
+	  ever going to be called by Set::Scalar itself, or by classes
+	  derived from Set::Scalar, so the assumption that all references
+	  are object and that they are capable of calling the new() method
+	  (i.e. being instance of Set::Scalar) is completely valid.
+	  Trying to use the suggested fix also badly breaks the
+	  laws.t when the universal and null sets are present.
+
 Sun Mar 28 17:16:26 2004  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* [cpan #5829] When is_disjoint() was called in list
@@ -7,14 +36,14 @@ Sun Mar 28 17:16:26 2004  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Released as 1.19.
 
-Sat Oct  4 17:56:24 2003  Jarkko Hietaniemi  <jhi@iki.fi>
+Sat Oct	 4 17:56:24 2003  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Removed a cut-and-paste bug from symmetric_difference();
 	  from frederik.
 
 	* Released as 1.18. 
 
-Sat Dec  8 01:48:35 2001  Jarkko Hietaniemi  <jhi@iki.fi>
+Sat Dec	 8 01:48:35 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Added is_empty() and empty() aliases for is_null()
 	  and null(); from Peter Oliver.
@@ -72,11 +101,11 @@ Wed Oct 10 17:31:12 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 	  
 	* Released as 1.11.
 	  
-Fri Aug  3 15:42:38 2001  Jarkko Hietaniemi  <jhi@iki.fi>
+Fri Aug	 3 15:42:38 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* 1.10: Added COPYRIGHT and LICENSE.
 
-Mon May  7 17:53:18 2001  Jarkko Hietaniemi  <jhi@iki.fi>
+Mon May	 7 17:53:18 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Annotation mixup: The fix known as 1.08 by Mark Dilger,
 	  not Joy Koenig.
@@ -89,13 +118,13 @@ Mon May  7 17:53:18 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Released as 1.08.
 
-Mon Mar  5 16:31:32 2001  Jarkko Hietaniemi  <jhi@iki.fi>
+Mon Mar	 5 16:31:32 2001  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Union could end up returning a true universe, from which one
 	  cannot delete elements (e.g. using difference), bug reported
 	  by Malcolm Purvis.  The fix (which was applied to all of the
 	  union+intersection+difference+symmetric_difference) was to
-          'downgrade' results of the same size as the first argument.
+	  'downgrade' results of the same size as the first argument.
 
 	* Set::Scalar called itself Set::Scalar::Base.
 	
@@ -151,6 +180,6 @@ Fri Sep 15 18:56:08 2000  Jarkko Hietaniemi  <jhi@iki.fi>
 	  to allow either (for subtests #5 and #6).
 
 	* Timothy Kimball <kimball@stsci.edu> reported that Set::Scalar 0.9
-	  had the super/subsetness the wrong way round.  Fixed.
+	  had the super/subsetness the wrong way round.	 Fixed.
 
 	* Set::Scalar 0.901 released.

@@ -11,6 +11,8 @@ use vars qw(@ISA @EXPORT_OK);
 
 use UNIVERSAL 'isa';
 
+use Scalar::Util qw(refaddr blessed);
+
 @EXPORT_OK = qw(_make_elements
 		as_string
 		as_string_callback
@@ -77,10 +79,7 @@ sub new {
 sub _strval {
     my $class = ref $_[0];
     return $_[0] unless $class;
-    bless $_[0], 'Set::Scalar::Base::NonOverloaded';
-    my $strval = "$class($_[0])";
-    bless $_[0], $class;
-    return $strval;
+    sprintf "%s(%s)", $class, refaddr $_[0];
 }
 
 sub _make_elements {
@@ -239,7 +238,7 @@ sub union {
     }
 
     $union = $self
-	if $union->size == $self->size;
+	if $is_universal && $union->size == $self->size;
 
     return $union;
 }
@@ -284,17 +283,18 @@ sub intersection {
 
     my $intersection = $self->clone;
 
+    my $is_null;
+
     foreach my $next ( @_ ) {
 	unless ($next->is_universal) {
-	    ($intersection, my $is_null) =
-		$intersection->_intersection( $next );
+	    ($intersection, $is_null) =	$intersection->_intersection( $next );
 
 	    last if $is_null;
 	}
     }
 
     $intersection = $self
-	if $intersection->size == $self->size;
+	if $is_null && $intersection->size == $self->size;
 
     return $intersection;
 }
@@ -599,7 +599,7 @@ sub _elements_as_string {
 	    } else {
 		$recursive = RECURSIVE_DEEP;
 	    }
-	} elsif (ref $element && $element->isa(__PACKAGE__)) {
+	} elsif (blessed $element && $element->isa(__PACKAGE__)) {
 	    local $history{ $element_id } = 1;
 	    push @complex_elements, $element->as_string( \%history );
 	} else {

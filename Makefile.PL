@@ -8,6 +8,11 @@ WriteMakefile(
 	      'NAME'         => 'Set::Scalar',
 	      'VERSION_FROM' => 'lib/Set/Scalar.pm',
 	      'dist'         => { 'COMPRESS' => 'gzip' },
+              PREREQ_PM       =>
+	      {
+                    'Scalar::Util'	=> 0,
+                    'Test::More'	=> 0,
+	      },
 	      )
 and
 print "Now issue 'make' and then 'make test', and if all looks good, 'make install'.\n";
