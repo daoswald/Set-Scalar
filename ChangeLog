@@ -1,3 +1,13 @@
+2007-10-04  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Made to work with the upcoming Perl 5.005_05
+	  (yes, you read that right), most importantly
+	  Scalar::Util made optional (we fall back to
+	  pure Perl emulations for blessed() and refaddr()
+	  if necessary).  Everything else already worked.
+
+	* Released as 1.21.
+
 Sat Aug	 6 12:39:43 2005  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* [cpan #13816] Set::Scalar blesses unblessed refs
@@ -26,6 +36,8 @@ Sat Aug	 6 12:39:43 2005  Jarkko Hietaniemi  <jhi@iki.fi>
 	  (i.e. being instance of Set::Scalar) is completely valid.
 	  Trying to use the suggested fix also badly breaks the
 	  laws.t when the universal and null sets are present.
+
+	* Released as 1.20.
 
 Sun Mar 28 17:16:26 2004  Jarkko Hietaniemi  <jhi@iki.fi>
 

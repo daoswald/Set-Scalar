@@ -11,7 +11,34 @@ use vars qw(@ISA @EXPORT_OK);
 
 use UNIVERSAL 'isa';
 
-use Scalar::Util qw(refaddr blessed);
+BEGIN {
+    eval 'require Scalar::Util';
+    unless ($@) {
+	import Scalar::Util qw(blessed refaddr);
+    } else {
+	# Use the pure Perl emulations (directly snagged from Scalar::Util).
+	sub UNIVERSAL::a_sub_not_likely_to_be_here { ref($_[0]) }
+	*blessed = sub ($) {
+	    local($@, $SIG{__DIE__}, $SIG{__WARN__});
+	    length(ref($_[0]))
+		? eval { $_[0]->a_sub_not_likely_to_be_here }
+	    : undef
+	};
+        *refaddr = sub ($) {
+	    my $pkg = ref($_[0]) or return undef;
+	    if (blessed($_[0])) {
+		bless $_[0], 'Scalar::Util::Fake';
+	    }
+	    else {
+		$pkg = undef;
+	    }
+	    "$_[0]" =~ /0x(\w+)/;
+	    my $i = do { local $^W; hex $1 };
+	    bless $_[0], $pkg if defined $pkg;
+	    $i;
+	};
+    }
+}
 
 @EXPORT_OK = qw(_make_elements
 		as_string

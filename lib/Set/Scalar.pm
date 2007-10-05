@@ -1,13 +1,11 @@
 package Set::Scalar;
 
 use strict;
-local $^W = 1;
+# local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.20';
-
-use Scalar::Util qw(blessed refaddr);
+$VERSION = '1.21';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
