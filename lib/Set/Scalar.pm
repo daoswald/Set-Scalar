@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.22';
+$VERSION = '1.23';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -87,8 +87,12 @@ See L</"Customising Display"> for customising the set display.
 
 =head2 Querying
 
+Assuming a set C<$s>:
+
     @members  = $s->members;
     @elements = $s->elements;  # Alias for members.
+
+    @$s  # Overloaded alias for members.
 
     $size = $s->size;  # The number of members.
 

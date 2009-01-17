@@ -1,3 +1,19 @@
+2009-01-16  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Add overload for '@{}' as suggested by John Loverso,
+	  meaning that you can now do @$set and get the members
+	  of the set (unordered, mind) [rt.cpan.org #42452]
+
+	* Add overload for '=' (how did we manage so long without?)
+	  [rt.cpan.org #42449]
+	
+	* Remove explicit import of UNIVERSAL::isa()
+	  [rt.cpan.org #42451]
+	
+	* Modernize META.yml.
+	
+	* Released as 1.23.
+
 2007-10-23  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Add cartesian_product() and power_set(), both as full

@@ -9,8 +9,6 @@ use vars qw(@ISA @EXPORT_OK);
 
 @ISA = qw(Exporter);
 
-use UNIVERSAL 'isa';
-
 BEGIN {
     eval 'require Scalar::Util';
     unless ($@) {
@@ -63,7 +61,10 @@ use overload
     '>'		=> \&is_proper_superset,
     '<='	=> \&is_subset,
     '>='	=> \&is_superset,
-    'bool'	=> \&size;
+    'bool'	=> \&size,
+    '@{}'	=> sub { [ $_[0]->members ] },
+    '='         => sub { $_[0]->new($_[0]->members) },
+    'cmp'       => sub { "$_[0]" cmp "$_[1]" };
 
 use constant OVERLOAD_BINARY_2ND_ARG  => 1;
 use constant OVERLOAD_BINARY_REVERSED => 2;

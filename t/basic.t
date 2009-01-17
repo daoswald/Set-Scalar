@@ -2,7 +2,7 @@ use Set::Scalar;
 
 use strict;
 
-print "1..42\n";
+print "1..49\n";
 
 my $s = Set::Scalar->new;
 
@@ -149,5 +149,36 @@ eval { $s->fill("y") };
 
 print "not " unless $@ =~ /\Q::fill(): need no arguments/;
 print "ok 42\n";
+
+$s->insert("a".."e");
+
+print "not " unless "@{ [ sort $s->members ] }" eq "a b c d e";
+print "ok 43\n";
+
+print "not " unless "@{ [ sort @$s ] }" eq "a b c d e";
+print "ok 44\n";
+
+my $t = Set::Scalar->new(@$s);
+
+print "not " unless "@{ [ sort @$t ] }" eq "a b c d e";
+print "ok 45\n";
+
+$t += "f";
+
+print "not " unless "@{ [ sort @$t ] }" eq "a b c d e f";
+print "ok 46\n";
+
+my $u = $t;
+
+print "not " unless "@{ [ sort @$u ] }" eq "a b c d e f";
+print "ok 47\n";
+
+$t += "g";
+
+print "not " unless "@{ [ sort @$t ] }" eq "a b c d e f g";
+print "ok 48\n";
+
+print "not " unless "@{ [ sort @$u ] }" eq "a b c d e f";
+print "ok 49\n";
 
 # End Of File.

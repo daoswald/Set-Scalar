@@ -13,6 +13,9 @@ WriteMakefile(
 	       # 'Scalar::Util'	=> 0, # Not a requirement anymore.
 	       # 'Test::More'	=> 0,
 	      },
+              AUTHOR => 'Jarkko Hietaniemi <jhi@iki.fi>',
+              ($ExtUtils::MakeMaker::VERSION >= 6.3002 ?
+	       ('LICENSE'=> 'perl', ) : ()),
 	      )
 and
 print <<__EOF__;
