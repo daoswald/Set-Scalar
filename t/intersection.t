@@ -1,6 +1,6 @@
 use Set::Scalar;
 
-print "1..23\n";
+print "1..24\n";
 
 my $a = Set::Scalar->new("a".."e");
 my $b = Set::Scalar->new("c".."g");
@@ -95,6 +95,12 @@ print "ok 20\n";
 	print "ok 23\n";
 }
 
+print "not " unless join("", sort @{
+	new Set::Scalar \$1,\$2,\$3,->intersection(
+		new Set::Scalar \$2,\$3,\$4
+	)
+}) eq join "", sort \$2,\$3;
+print "ok 24\n";
 
 
 

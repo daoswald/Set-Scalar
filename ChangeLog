@@ -1,8 +1,24 @@
+2009-06-02  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Fixed "The intersection method does not like references in the 
+	  set." [rt.cpan.org #46589], bug reported and fix provided by
+	  Father Chrysostomos.
+
+	* Cosmetics: removed trailing whitespace.
+	
+	* Renamed README as README.old.  It has been close to ten years.
+
+	* Added new README.
+	
+	* Updated copyright years. 
+	
+	* Released as 1.24.
+	
 2009-01-16  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Add overload for '@{}' as suggested by John Loverso,
 	  meaning that you can now do @$set and get the members
-	  of the set (unordered, mind) [rt.cpan.org #42452]
+	  of the set (unordered, mind)
 
 	* Add overload for '=' (how did we manage so long without?)
 	  [rt.cpan.org #42449]
@@ -39,7 +55,7 @@ Sat Aug	 6 12:39:43 2005  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* [cpan #13816] Set::Scalar blesses unblessed refs
 
-	  A genuine bug, the suggsted fix used, but then again Set::Scalar
+	  A genuine bug, the suggested fix used, but then again Set::Scalar
 	  was never designed or tested be used with references as the set
 	  members.  I would not recommend doing that unless much more
 	  testing has been conducted.  A test added to misc.t for that,

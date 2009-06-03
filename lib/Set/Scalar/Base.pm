@@ -306,7 +306,7 @@ sub _intersection ($$) {
 
     my %intersection = _make_elements $intersection->elements;
 
-    delete @intersection{ $that->elements };
+    delete @intersection{ keys %{{ _make_elements $that->elements }} };
 
     $intersection->delete( values %intersection );
 

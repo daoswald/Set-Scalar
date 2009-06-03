@@ -10,6 +10,7 @@ lib/Set/Scalar/Valued.pm
 lib/Set/Scalar/ValuedUniverse.pm
 lib/Set/Scalar/Virtual.pm
 README
+README.old
 t/basic.t
 t/basic_overload.t
 t/boolean.t

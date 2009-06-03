@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.23';
+$VERSION = '1.24';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -57,7 +57,7 @@ Set::Scalar - basic set operations
 =head2 Creating
 
     $s = Set::Scalar->new;
-    $s = Set::Scalar->new(@members); 
+    $s = Set::Scalar->new(@members);
 
     $t = $s->clone;
     $t = $s->copy;         # Clone of clone.
@@ -106,6 +106,7 @@ Assuming a set C<$s>:
 
     $s->is_null        # Returns true if the set is empty.
     $s->is_empty       # Alias for is_null.
+
     $s->is_universal   # Returns true if the set is universal.
 
     $s->null           # The null set.
@@ -121,7 +122,7 @@ Assuming a set C<$s>:
     $v = $s->unique($t);
     $c = $s->complement;
 
-These methods have operator overloads:    
+These methods have operator overloads:
 
     $u = $s + $t;  # union
     $i = $s * $t;  # intersection
@@ -173,7 +174,7 @@ The C<compare> method returns a string from the following list:
 intersect", and in future (once I get around implementing it),
 "disjoint universes".
 
-These methods have operator overloads:    
+These methods have operator overloads:
 
     $eq = $s == $t;  # is_equal
     $dj = $s != $t;  # is_disjoint
@@ -277,7 +278,7 @@ For example:
 
   my $a = Set::Scalar->new(1..2);
   my $b = Set::Scalar->new(3..5);
-  my $c = $a->cartesian_product($b);  # As an object method. 
+  my $c = $a->cartesian_product($b);  # As an object method.
   my $d = Set::Scalar->cartesian_product($a, $b);  # As a class method.
 
 The $c and $d will be of the same class as $a.  The members of $c and
@@ -383,10 +384,10 @@ Jarkko Hietaniemi <jhi@iki.fi>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2001,2002,2003,2004 by Jarkko Hietaniemi
+Copyright 2001,2002,2003,2004,2005,2007,2009 by Jarkko Hietaniemi
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut
 
