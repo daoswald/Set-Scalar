@@ -1,3 +1,16 @@
+2009-12-27  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Fixed "trying to add an element twice prevents further
+	  adds to the set" [rt.cpan.org #52559], bug reported by
+	  Eduard Wulff.
+	
+	* Removed unused and deprecated (Perl 5.12?) "use UNIVERSAL 'isa'"
+	  from Set/Scalar/Virtual.pm.
+	
+	* Add tests for the copy overload.
+	
+	* Released as 1.25.
+	
 2009-06-02  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Fixed "The intersection method does not like references in the 

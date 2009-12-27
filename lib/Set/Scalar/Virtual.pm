@@ -9,8 +9,6 @@ use vars qw(@ISA);
 
 use Set::Scalar::Base qw(_make_elements as_string _compare _strval);
 
-use UNIVERSAL 'isa';
-
 use overload
     '""'	=> \&as_string,
     'eq'	=> \&are_equal,

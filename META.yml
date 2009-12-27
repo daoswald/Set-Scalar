@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Set-Scalar
-version:            1.24
+version:            1.25
 abstract:           ~
 author:
     - Jarkko Hietaniemi <jhi@iki.fi>
@@ -15,7 +15,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.52
+generated_by:       ExtUtils::MakeMaker version 6.55_02
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4

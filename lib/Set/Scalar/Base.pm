@@ -1,7 +1,7 @@
 package Set::Scalar::Base;
 
 use strict;
-local $^W = 1;
+# local $^W = 1;
 
 require Exporter;
 
@@ -63,7 +63,7 @@ use overload
     '>='	=> \&is_superset,
     'bool'	=> \&size,
     '@{}'	=> sub { [ $_[0]->members ] },
-    '='         => sub { $_[0]->new($_[0]->members) },
+    '='         => sub { $_[0]->clone($_[1]) },
     'cmp'       => sub { "$_[0]" cmp "$_[1]" };
 
 use constant OVERLOAD_BINARY_2ND_ARG  => 1;
@@ -246,8 +246,11 @@ sub _union ($$) {
     return ($that->clone,   0, ref $that)
 	if $this->is_null;
 
-    return ($this_universe, 1, ref $this)
-	if $this->is_universal || $that->is_universal;
+    return ($this, 1, ref $this)
+	if $this->is_universal;
+
+    return ($that, 1, ref $that)
+	if $that->is_universal;
 
     my $union = $this->clone;
 

@@ -2,7 +2,7 @@ use Set::Scalar;
 
 use strict;
 
-print "1..30\n";
+print "1..40\n";
 
 my $s = Set::Scalar->new;
 
@@ -112,7 +112,48 @@ print "not " unless $s eq "(a b d e)";
 print "ok 29\n";
 
 print "not " unless $s->universe eq "[a b c d e]";
-
 print "ok 30\n";
+
+my $t = $s;
+
+print "not " unless $t->size == 4;
+print "ok 31\n";
+
+print "not " if $t->is_null;
+print "ok 32\n";
+
+print "not " if $t->is_universal;
+print "ok 33\n";
+
+print "not " unless $t eq "(a b d e)";
+print "ok 34\n";
+
+print "not " unless $t->universe eq "[a b c d e]";
+print "ok 35\n";
+
+$t = $t + 'f';
+
+print "not " unless $t eq "(a b d e f)";
+print "ok 36\n";
+
+print "not " unless $t->universe eq "[a b c d e f]";
+print "ok 37\n";
+
+print "not " unless $s eq "(a b d e)";
+print "ok 38\n";
+
+print "not " unless $s->universe eq "[a b c d e f]";
+print "ok 39\n";
+
+my $a = Set::Scalar->new();
+adder(2);
+adder(3);
+adder(34);
+sub adder {
+  my $e = shift;
+  $a = $a + $e;
+}
+print "not " unless $a eq "(2 3 34)";
+print "ok 40\n";
 
 # End Of File.
