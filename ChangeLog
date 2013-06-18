@@ -1,3 +1,16 @@
+2013-06-15  Jarkko Hietaniemi  <jhi@iki.fi>
+
+	* Fixed "Set::Scalar::Valued" [rt.cpan.org #69037], bug reported
+	  and fix supplied by Kiran Mukhyala, the problem was in null()
+	  not being defined for valued set universes.
+	
+	* Fixed qq[More whitespace in examples could show "picture" of
+	  operations] [rt.cpan.org #54172 and #54173], bug reported
+	  and fix supplied by MichaelRWolf.  (ASCII art, so relies
+	  on fixed-width font.)
+	
+	* Released as 1.26.
+	
 2009-12-27  Jarkko Hietaniemi  <jhi@iki.fi>
 
 	* Fixed "trying to add an element twice prevents further

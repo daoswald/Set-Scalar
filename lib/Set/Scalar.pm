@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.25';
+$VERSION = '1.26';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -79,7 +79,15 @@ be reused by Perl; it will not reduce the overall memory use.
     print $s, "\n";
 
 The display format of a set is the members of the set separated by
-spaces and enclosed in parentheses ().
+spaces and enclosed in parentheses (), for example:
+
+   my $s = Set::Scalar->new();
+   $s->insert("a".."e");
+   print $s, "\n";
+
+will output
+
+   a b c d e
 
 You can even display recursive sets.
 
@@ -137,25 +145,26 @@ two sets beware: C<symmetric_difference> returns true for elements
 that are in an odd number (1, 3, 5, ...) of sets, C<unique> returns
 true for elements that are in one set.
 
-Some examples of the various set differences:
+Some examples of the various set differences below
+(the _ is just used to align the elements):
 
     set or difference                   value
 
-    $a                                  (a b c d e)
-    $b                                  (c d e f g)
-    $c                                  (e f g h i)
+    $a                                  (a b c d e _ _ _ _ _)
+    $b                                  (_ _ _ c d e f g _ _)
+    $c                                  (_ _ _ _ _ e f g h i)
 
-    $a->difference($b)                  (a b)
-    $a->symmetric_difference($b)        (a b f g)
-    $a->unique($b)                      (a b f g)
+    $a->difference($b)                  (a b _ _ _ _ _ _ _ _)
+    $a->symmetric_difference($b)        (a b _ _ _ _ f g _ _)
+    $a->unique($b)                      (a b _ _ _ _ f g _ _)
 
-    $b->difference($a)                  (f g)
-    $b->symmetric_difference($a)        (a b f g)
-    $b->unique($a)                      (a b f g)
+    $b->difference($a)                  (_ _ _ _ _ _ f g _ _)
+    $b->symmetric_difference($a)        (a b _ _ _ _ f g _ _)
+    $b->unique($a)                      (a b _ _ _ _ f g _ _)
 
-    $a->difference($b, $c)              (a b)
-    $a->symmetric_difference($b, $c)    (a b e h i)
-    $a->unique($b, $c)                  (a b h i)
+    $a->difference($b, $c)              (a b _ _ _ _ _ _ _ _)
+    $a->symmetric_difference($b, $c)    (a b _ _ e _ _ _ h i)
+    $a->unique($b, $c)                  (a b _ _ _ _ _ _ h i)
 
 =head2 Comparing
 
@@ -234,11 +243,17 @@ but instead like this
 
 There is one iterator per one set which is shared by many
 element-accessing interfaces-- using the following will reset the
-iterator: elements(), insert(), members(), size(), unique().  insert()
-causes the iterator of the set being inserted (not the set being the
-target of insertion) becoming reset.  unique() causes the iterators of
-all the participant sets becoming reset.  B<The iterator getting reset
-most probably causes an endless loop.>  So avoid doing that.
+iterator: C<elements()>, C<insert()>, C<members()>, C<size()>,
+C<unique()>.  C<insert()> causes the iterator of the set being
+inserted (not the set being the target of insertion) becoming reset.
+C<unique()> causes the iterators of all the participant sets becoming
+reset.  B<The iterator getting reset most probably causes an endless
+loop.> So avoid doing that.
+
+For C<delete()> the story is a little bit more complex: it depends
+on what element you are deleting and on the version of Perl.  On modern
+Perls you can safely delete the element you just deleted.  But deleting
+random elements can affect the iterator, so beware.
 
 =item *
 
@@ -384,7 +399,7 @@ Jarkko Hietaniemi <jhi@iki.fi>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2001,2002,2003,2004,2005,2007,2009 by Jarkko Hietaniemi
+Copyright 2001,2002,2003,2004,2005,2007,2009,2013 by Jarkko Hietaniemi
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

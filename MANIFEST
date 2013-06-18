@@ -1,4 +1,4 @@
-Changes
+ChangeLog
 MANIFEST
 Makefile.PL
 lib/Set/Scalar.pm
@@ -32,5 +32,7 @@ t/symmdiff.t
 t/union.t
 t/unique.t
 t/universe.t
+t/valued.t
 
 META.yml                                 Module meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

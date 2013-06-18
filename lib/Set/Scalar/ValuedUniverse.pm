@@ -8,6 +8,7 @@ use vars qw(@ISA);
 @ISA = qw(Set::Scalar::Virtual Set::Scalar::Base);
 
 use Set::Scalar::Virtual;
+use Set::Scalar::Null;
 
 my $UNIVERSE = __PACKAGE__->new;
 
@@ -17,6 +18,11 @@ sub universe {
     my $self = shift;
 
     return $UNIVERSE;
+}
+
+sub null {
+    my $self = shift;
+    return Set::Scalar::Null->new( $self );
 }
 
 =pod
