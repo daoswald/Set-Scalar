@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.26';
+$VERSION = '1.27';
 
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
@@ -396,6 +396,8 @@ intervals, and many more.  CPAN is your friend.
 =head1 AUTHOR
 
 Jarkko Hietaniemi <jhi@iki.fi>
+David Oswald <davido@cpan.org> is the current maintainer.
+The GitHub repo is at L<https://github.com/daoswald/Set-Scalar>
 
 =head1 COPYRIGHT AND LICENSE
 
