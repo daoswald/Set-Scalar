@@ -14,6 +14,16 @@ WriteMakefile(
 	       # 'Test::More'	=> 0,
 	      },
               AUTHOR => 'Jarkko Hietaniemi <jhi@iki.fi>',
+              META_MERGE => {
+                'meta-spec' => { version => 2 },
+                resources => {
+                  repository => {
+                    type => 'git',
+                    url => 'https://github.com/daoswald/Set-Scalar.git',
+                    web => 'https://github.com/daoswald/Set-Scalar',
+                  },
+                },
+              },
               ($ExtUtils::MakeMaker::VERSION >= 6.3002 ?
 	       ('LICENSE'=> 'perl', ) : ()),
 	      )
