@@ -280,7 +280,7 @@ The Cartesian product of the above is the set
 
   ([a, c] [a, d] [a, e] [b, c] [b, d] [b, e])
 
-The [,] notation is for the ordered pairs, which sets are are not.
+The [,] notation is for the ordered pairs, which sets are not.
 This means two things: firstly, that [e, b] is B<not> in the above
 Cartesian product, and secondly, [b, b] is a possibility:
 
