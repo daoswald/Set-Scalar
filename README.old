@@ -1,3 +1,5 @@
+---- THE FOLLOWING DOCUMENT IS PRESERVED FOR ITS HISTORICAL VALUE ONLY. ----
+
 This is a long-waited-for (I hope) rewrite of the venerable Set::Scalar
 module.  The original 0.00x series culminated in 0.003 back in May 1996,
 the 0.004 in October 1998 was just a minor update.

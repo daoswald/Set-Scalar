@@ -2,9 +2,12 @@
 abstract: unknown
 author:
   - 'Jarkko Hietaniemi <jhi@iki.fi>'
-build_requires: {}
+build_requires:
+  ExtUtils::MakeMaker: 0
+configure_requires:
+  ExtUtils::MakeMaker: 0
 dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.133380'
+generated_by: 'ExtUtils::MakeMaker version 6.86, CPAN::Meta::Converter version 2.133380'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -14,6 +17,7 @@ no_index:
   directory:
     - t
     - inc
+requires: {}
 resources:
   repository: https://github.com/daoswald/Set-Scalar.git
-version: 1.27
+version: 1.28

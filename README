@@ -7,4 +7,5 @@ Please see lib/Set/Scalar.pm for more information, once you have
 installed this module, "perldoc Set::Scalar" should work.
 
 -- 
-jhi@iki.fi
+jhi@iki.fi  :  Original author.
+davido@cpan.org : Current maintainer.

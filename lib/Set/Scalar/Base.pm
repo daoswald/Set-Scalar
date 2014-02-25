@@ -5,8 +5,9 @@ use strict;
 
 require Exporter;
 
-use vars qw(@ISA @EXPORT_OK);
+use vars qw($VERSION @ISA @EXPORT_OK);
 
+$VERSION = '1.28';
 @ISA = qw(Exporter);
 
 BEGIN {

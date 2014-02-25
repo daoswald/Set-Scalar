@@ -8,11 +8,7 @@ WriteMakefile(
 	      'NAME'         => 'Set::Scalar',
 	      'VERSION_FROM' => 'lib/Set/Scalar.pm',
 	      'dist'         => { 'COMPRESS' => 'gzip' },
-              PREREQ_PM       =>
-	      {
-	       # 'Scalar::Util'	=> 0, # Not a requirement anymore.
-	       # 'Test::More'	=> 0,
-	      },
+              PREREQ_PM       => { },
               AUTHOR => 'Jarkko Hietaniemi <jhi@iki.fi>',
               META_MERGE => {
                 'meta-spec' => { version => 2 },

@@ -4,7 +4,7 @@ use strict;
 
 $| = 1;
 
-print STDERR "(WARNING: this can take a while)...";
+print STDERR "# (WARNING: this can take awhile)...\n";
 
 my $t = 1;
 

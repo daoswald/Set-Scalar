@@ -3,8 +3,9 @@ package Set::Scalar::ValuedUniverse;
 use strict;
 local $^W = 1;
 
-use vars qw(@ISA);
+use vars qw($VERSION @ISA);
 
+$VERSION = '1.28';
 @ISA = qw(Set::Scalar::Virtual Set::Scalar::Base);
 
 use Set::Scalar::Virtual;

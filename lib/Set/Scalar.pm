@@ -5,8 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.27';
-
+$VERSION = '1.28';
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
 use Set::Scalar::Base qw(_make_elements is_equal as_string_callback);
@@ -334,7 +333,7 @@ Even the empty set has a power set, of size one.
 If you don't want to construct the power set, you can construct an
 iterator and call it until it returns no more members:
 
-   my $iter = Set::Scalar->power_set($a);
+   my $iter = Set::Scalar->power_set_iterator($a);
    my @m;
    do {
      @m = $iter->();
