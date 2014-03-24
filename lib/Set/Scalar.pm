@@ -149,21 +149,21 @@ Some examples of the various set differences below
 
     set or difference                   value
 
-    $a                                  (a b c d e _ _ _ _ _)
-    $b                                  (_ _ _ c d e f g _ _)
-    $c                                  (_ _ _ _ _ e f g h i)
+    $a                                  (a b c d e _ _ _ _)
+    $b                                  (_ _ c d e f g _ _)
+    $c                                  (_ _ _ _ e f g h i)
 
-    $a->difference($b)                  (a b _ _ _ _ _ _ _ _)
-    $a->symmetric_difference($b)        (a b _ _ _ _ f g _ _)
-    $a->unique($b)                      (a b _ _ _ _ f g _ _)
+    $a->difference($b)                  (a b _ _ _ _ _ _ _)
+    $a->symmetric_difference($b)        (a b _ _ _ f g _ _)
+    $a->unique($b)                      (a b _ _ _ f g _ _)
 
-    $b->difference($a)                  (_ _ _ _ _ _ f g _ _)
-    $b->symmetric_difference($a)        (a b _ _ _ _ f g _ _)
-    $b->unique($a)                      (a b _ _ _ _ f g _ _)
+    $b->difference($a)                  (_ _ _ _ _ f g _ _)
+    $b->symmetric_difference($a)        (a b _ _ _ f g _ _)
+    $b->unique($a)                      (a b _ _ _ f g _ _)
 
-    $a->difference($b, $c)              (a b _ _ _ _ _ _ _ _)
-    $a->symmetric_difference($b, $c)    (a b _ _ e _ _ _ h i)
-    $a->unique($b, $c)                  (a b _ _ _ _ _ _ h i)
+    $a->difference($b, $c)              (a b _ _ _ _ _ _ _)
+    $a->symmetric_difference($b, $c)    (a b _ _ e _ _ h i)
+    $a->unique($b, $c)                  (a b _ _ _ _ _ h i)
 
 =head2 Comparing
 
