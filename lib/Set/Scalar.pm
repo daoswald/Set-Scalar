@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.28';
+$VERSION = '1.29';
 @ISA = qw(Set::Scalar::Real Set::Scalar::Null Set::Scalar::Base);
 
 use Set::Scalar::Base qw(_make_elements is_equal as_string_callback);

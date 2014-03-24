@@ -20,4 +20,4 @@ no_index:
 requires: {}
 resources:
   repository: https://github.com/daoswald/Set-Scalar.git
-version: 1.28
+version: 1.29

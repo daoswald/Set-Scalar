@@ -5,7 +5,7 @@ local $^W = 1;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '1.28';
+$VERSION = '1.29';
 @ISA = qw(Set::Scalar::Base Set::Scalar::Virtual);
 use Set::Scalar::Virtual;
 use Set::Scalar::Base;

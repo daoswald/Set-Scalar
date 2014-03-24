@@ -1,3 +1,6 @@
+1.29 2014-03-24  Dave Oswald <davido@cpan.org>
+  * Fixed set operations examples in POD (Xaerxess via GitHub).
+  
 1.28 2014-02-24  Dave Oswald <davido@cpan.org>
   * Fix POD example showing power_set() method returning an iterator. Now it
     correctly demonstrates power_set_iterator() returning an iterator.
